@@ -5,8 +5,7 @@
  - 🔭 I’m currently learning software engineering at ALX-Africa
  - 🌱 Interested in machine learning, data science and deep learning with pyhton
  ### :computer: My statistics: 
-![kenkomu's GitHub stats](https://github-readme-stats.vercel.app/api?username=kenkomu&show_icons=true&theme=radical)  
-  [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=kenkomu&layout=compact&theme=vision-friendly-dark)](https://github.com/anuraghazra/github-readme-stats)
+
   <center>
   <table>
   <tr>
