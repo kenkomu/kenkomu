@@ -1,7 +1,5 @@
   --- 
-[![kenkomu's GitHub stats](https://github-readme-stats.vercel.app/api?username=kenkomu)](https://github.com/kenkomu/github-readme-stats)
-  Connect with me :point_down:
- 
+[![kenkomu's GitHub stats](https://github-readme-stats.vercel.app/api?username=kenkomu)](https://github.com/kenkomu/github-readme-stats) 
   ### :computer: My statistics: 
   
   [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=kenkomu&layout=compact&theme=vision-friendly-dark)](https://github.com/anuraghazra/github-readme-stats)
