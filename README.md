@@ -9,7 +9,7 @@
   <center>
   <table>
   <tr>
-      <td><img width="400px" align="left" src="https://github-readme-stats.vercel.app/api?username=kenkomu&count_private=true&show_icons=true&theme=dark&layout=compact" /></td>
+      <td><img width="400px" align="left" src="https://github-readme-stats.vercel.app/api?username=kenkomu&count_private=true&show_icons=true&theme=radical" /></td>
       <td><img width="400px" src="https://github-readme-streak-stats.herokuapp.com/?user=kenkomu&theme=dark" /></td>      
   </tr>   
   </table>
