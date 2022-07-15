@@ -1,8 +1,4 @@
-  --- 
-[![kenkomu's GitHub stats](https://github-readme-stats.vercel.app/api?username=kenkomu)](https://github.com/kenkomu/github-readme-stats) 
-![kenkomu's GitHub stats](https://github-readme-stats.vercel.app/api?username=kenkomu&hide=contribs,prs)
-![kenkomu's GitHub stats](https://github-readme-stats.vercel.app/api?username=kenkomu&count_private=true)
-![kenkomu's GitHub stats](https://github-readme-stats.vercel.app/api?username=kenkomu&show_icons=true)
+ ---
 ![kenkomu's GitHub stats](https://github-readme-stats.vercel.app/api?username=kenkomu&show_icons=true&theme=radical)
   ### :computer: My statistics: 
   
