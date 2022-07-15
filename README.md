@@ -5,17 +5,17 @@
  - 🔭 I’m currently learning software engineering at ALX-Africa
  - 🌱 Interested in machine learning, data science and deep learning with pyhton
  ### :computer: My statistics: 
-
+![kenkomu's GitHub stats](https://github-readme-stats.vercel.app/api?username=kenkomu&show_icons=true&theme=radical)  
+  [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=kenkomu&layout=compact&theme=vision-friendly-dark)](https://github.com/anuraghazra/github-readme-stats)
   <center>
   <table>
   <tr>
       <td><img width="400px" align="left" src="https://github-readme-stats.vercel.app/api?username=kenkomu&count_private=true&show_icons=true&theme=radical" /></td>
-      <td><img width="400px" src="https://github-readme-streak-stats.herokuapp.com/?user=kenkomu&theme=dark" /></td>      
+      <td><img width="400px" src="https://github-readme-streak-stats.herokuapp.com/?user=kenkomu&theme=radical" /></td>      
   </tr>   
   </table>
 </center>
-![kenkomu's GitHub stats](https://github-readme-stats.vercel.app/api?username=kenkomu&show_icons=true&theme=radical)  
-  [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=kenkomu&layout=compact&theme=vision-friendly-dark)](https://github.com/anuraghazra/github-readme-stats)
+
    
 </div> 
 
