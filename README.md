@@ -7,6 +7,15 @@
  ### :computer: My statistics: 
 ![kenkomu's GitHub stats](https://github-readme-stats.vercel.app/api?username=kenkomu&show_icons=true&theme=radical)  
   [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=kenkomu&layout=compact&theme=vision-friendly-dark)](https://github.com/anuraghazra/github-readme-stats)
+  <center>
+  <table>
+  <tr>
+      <td><img width="400px" align="left" src="https://github-readme-stats.vercel.app/api?username=kenkomu&count_private=true&show_icons=true&theme=dark&layout=compact" /></td>
+      <td><img width="400px" src="https://github-readme-streak-stats.herokuapp.com/?user=kenkomu&theme=dark" /></td>      
+  </tr>   
+  </table>
+</center>
+   
 </div> 
 
 ### Now Playing — Spotify 🎧
