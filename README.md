@@ -1,4 +1,4 @@
-
+[![kenkomu's GitHub stats](https://github-readme-stats.vercel.app/api?username=kenkomu)](https://github.com/kenkomu/github-readme-stats)
   Connect with me :point_down:
   
   <div id="badges"> 
