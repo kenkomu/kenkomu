@@ -1,7 +1,7 @@
  ---
-![kenkomu's GitHub stats](https://github-readme-stats.vercel.app/api?username=kenkomu&show_icons=true&theme=radical)
-  ### :computer: My statistics: 
-  
+ <!-- [Marville001](https://raw.githubusercontent.com/marville001/marville001/main/marville001.png) -->
+ ### :computer: My statistics: 
+![kenkomu's GitHub stats](https://github-readme-stats.vercel.app/api?username=kenkomu&show_icons=true&theme=radical)  
   [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=kenkomu&layout=compact&theme=vision-friendly-dark)](https://github.com/anuraghazra/github-readme-stats)
 </div> 
 
