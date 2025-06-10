@@ -1,3 +1,5 @@
+// frontend_react/src/container/index.js
+
 import About from './About/About';
 import Footer from './Footer/Footer';
 import Header from './Header/Header';

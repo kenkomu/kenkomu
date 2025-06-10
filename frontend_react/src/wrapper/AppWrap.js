@@ -1,3 +1,5 @@
+// frontend_react/src/wrapper/AppWrap.js
+
 import React from 'react';
 import { NavigationDots, SocialMedia } from '../components';
 

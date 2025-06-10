@@ -4,10 +4,33 @@
   background-size: cover;
   background-position: center;
   background-repeat: repeat;
+  transition: all 0.3s ease;
+
+  // Dark mode overlay for background image
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: transparent;
+    transition: background 0.3s ease;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .dark-theme & {
+    &::before {
+      background: rgba(15, 23, 42, 0.7); // Dark overlay for better readability
+    }
+  }
 
   // disable the default padding styles
   .app__wrapper {
     padding: 0;
+    position: relative;
+    z-index: 2; // Ensure content is above overlay
 
     .copyright {
       display: none;
@@ -62,12 +85,39 @@
   .badge-cmp,
   .tag-cmp {
     padding: 1rem 2rem;
-    background: var(--white-color);
+    background: var(--bg-secondary);
     border-radius: 15px;
     flex-direction: row;
     width: auto;
+    border: 1px solid var(--border-color);
+    
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
 
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    &:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+
+    // Dark mode specific styles
+    .dark-theme & {
+      background: rgba(30, 41, 59, 0.9);
+      border: 1px solid rgba(55, 65, 81, 0.5);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    p {
+      color: var(--text-primary);
+      transition: color 0.3s ease;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      color: var(--text-primary);
+      transition: color 0.3s ease;
+    }
   }
 
   .tag-cmp {
@@ -78,11 +128,14 @@
       width: 100%;
       text-transform: uppercase;
       text-align: right;
+      color: var(--text-secondary);
     }
   }
 
   span {
     font-size: 2.5rem;
+    color: var(--text-primary);
+    transition: color 0.3s ease;
 
     @media screen and (min-width: 2000px) {
       font-size: 5rem;
@@ -109,17 +162,68 @@
     height: 100px;
     border-radius: 50%;
 
-    background: var(--white-color);
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+
+    &:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-5px) scale(1.05);
+      border-color: var(--secondary-color);
+    }
+
+    // Dark mode specific styles
+    .dark-theme & {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(55, 65, 81, 0.6);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+
+      &:hover {
+        background: rgba(30, 41, 59, 0.9);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), 
+                    0 0 20px rgba(79, 70, 229, 0.2);
+      }
+    }
 
     img {
       width: 60%;
       height: 60%;
+      transition: all 0.3s ease;
+      filter: var(--img-filter, none);
+      
+      .dark-theme & {
+        --img-filter: brightness(1.1) contrast(1.1);
+      }
+    }
+
+    // Subtle glow effect for dark mode
+    .dark-theme &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at center, 
+                    rgba(79, 70, 229, 0.1) 0%, 
+                    transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .dark-theme &:hover::before {
+      opacity: 1;
     }
   }
 
   // circles with different height & width
-
   div:nth-child(1) {
     width: 100px;
     height: 100px;
@@ -178,6 +282,13 @@
     width: 100%;
     object-fit: contain;
     z-index: 1;
+    transition: all 0.3s ease;
+    filter: var(--profile-img-filter, none);
+
+    // Subtle enhancement for dark mode
+    .dark-theme & {
+      --profile-img-filter: brightness(1.05) contrast(1.02);
+    }
   }
 
   .overlay_circle {
@@ -188,9 +299,59 @@
     z-index: 0;
     width: 100%;
     height: 90%;
+    transition: all 0.3s ease;
+    opacity: var(--overlay-opacity, 1);
+
+    // Adjust overlay circle for dark mode
+    .dark-theme & {
+      --overlay-opacity: 0.8;
+      filter: hue-rotate(10deg) brightness(0.9);
+    }
   }
 
   @media screen and (max-width: 1200px) {
     margin: 2rem 0;
   }
+}
+
+// Additional enhancements for better dark mode experience
+.dark-theme {
+  #home {
+    // Enhanced background treatment for dark mode
+    background-blend-mode: overlay;
+    
+    // Improve text readability with text shadows
+    .app__header-badge {
+      .badge-cmp, .tag-cmp {
+        h1, h2, h3, h4, h5, h6, p, span {
+          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+      }
+    }
+  }
+  
+  // Enhance focus states for accessibility
+  .app__header-circles div:focus,
+  .app__header-badge .badge-cmp:focus,
+  .app__header-badge .tag-cmp:focus {
+    outline: 2px solid var(--secondary-color);
+    outline-offset: 2px;
+  }
+}
+
+// Loading animation for images in dark mode
+@keyframes darkModeImageLoad {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.dark-theme .app__header-circles div img,
+.dark-theme .app__header-img img {
+  animation: darkModeImageLoad 0.5s ease-out;
 }

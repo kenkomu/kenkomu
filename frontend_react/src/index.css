@@ -1,8 +1,10 @@
+/* src/index.css */
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
 
 :root {
   --font-base: "DM Sans", sans-serif;
 
+  /* Light theme colors */
   --primary-color: #edf2f8;
   --secondary-color: #313bac;
   --black-color: #030303;
@@ -10,6 +12,37 @@
   --gray-color: #6b7688;
   --brown-color: #46364a;
   --white-color: #ffffff;
+  
+  /* Additional light theme colors */
+  --text-primary: #030303;
+  --text-secondary: #6b7688;
+  --bg-primary: #edf2f8;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f8fafc;
+  --border-color: #e4e4e4;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.dark-theme {
+  /* Dark theme colors */
+  --primary-color: #0f172a;
+  --secondary-color: #4f46e5;
+  --black-color: #f8fafc;
+  --lightGray-color: #374151;
+  --gray-color: #94a3b8;
+  --brown-color: #64748b;
+  --white-color: #1e293b;
+  
+  /* Additional dark theme colors */
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-tertiary: #334155;
+  --border-color: #374151;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
 * {
@@ -17,4 +50,13 @@
   padding: 0;
   margin: 0;
   scroll-behavior: smooth;
+}
+
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Smooth transitions for theme switching */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }

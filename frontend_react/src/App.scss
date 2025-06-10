@@ -1,14 +1,18 @@
+// src/App.scss
 .app {
   background-color: var(--primary-color);
   font-family: var(--font-base);
+  transition: background-color 0.3s ease;
 }
 
 .app__whitebg {
-  background-color: var(--white-color);
+  background-color: var(--bg-secondary);
+  transition: background-color 0.3s ease;
 }
 
 .app__primarybg {
   background-color: var(--primary-color);
+  transition: background-color 0.3s ease;
 }
 
 .app__container {
@@ -47,7 +51,8 @@
 
   p {
     text-transform: uppercase;
-    color: var(--black-color);
+    color: var(--text-primary);
+    transition: color 0.3s ease;
   }
 }
 
@@ -55,11 +60,13 @@
   font-size: 2.75rem;
   font-weight: 800;
   text-align: center;
-  color: var(--black-color);
+  color: var(--text-primary);
   text-transform: capitalize;
+  transition: color 0.3s ease;
 
   span {
     color: var(--secondary-color);
+    transition: color 0.3s ease;
   }
 
   @media screen and (min-width: 2000px) {
@@ -74,8 +81,9 @@
 .p-text {
   font-size: 0.8rem;
   text-align: left;
-  color: var(--gray-color);
+  color: var(--text-secondary);
   line-height: 1.5;
+  transition: color 0.3s ease;
 
   @media screen and (min-width: 2000px) {
     font-size: 1.75rem;
@@ -85,8 +93,9 @@
 .bold-text {
   font-size: 1rem;
   font-weight: 800;
-  color: var(--black-color);
+  color: var(--text-primary);
   text-align: left;
+  transition: color 0.3s ease;
 
   @media screen and (min-width: 2000px) {
     font-size: 2rem;
@@ -109,25 +118,29 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: var(--white-color);
+    background-color: var(--bg-secondary);
     margin: 0.25rem 0;
-    border: 1px solid var(--lightGray-color);
+    border: 1px solid var(--border-color);
 
     display: flex;
     justify-content: center;
     align-items: center;
 
     transition: all 0.3s ease-in-out;
+    box-shadow: var(--shadow);
 
     svg {
       width: 15px;
       height: 15px;
-      color: var(--gray-color);
+      color: var(--text-secondary);
+      transition: color 0.3s ease;
     }
 
     &:hover {
       background-color: var(--secondary-color);
       border-color: var(--secondary-color);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
 
       svg {
         color: var(--white-color);
@@ -160,13 +173,19 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background-color: #cbcbcb;
+    background-color: var(--border-color);
     margin: 0.5rem;
 
-    transition: background-color 0.2s ease-in-out;
+    transition: all 0.3s ease-in-out;
 
     &:hover {
       background-color: var(--secondary-color);
+      transform: scale(1.2);
+    }
+
+    &.active {
+      background-color: var(--secondary-color);
+      box-shadow: 0 0 10px var(--secondary-color);
     }
 
     @media screen and (min-width: 2000px) {
@@ -184,5 +203,50 @@
 
   .copyright {
     padding: 2rem;
+  }
+}
+
+/* Dark mode specific enhancements */
+.dark-theme {
+  .app__social div {
+    backdrop-filter: blur(10px);
+    background-color: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(55, 65, 81, 0.5);
+  }
+
+  .app__navigation-dot {
+    background-color: rgba(55, 65, 81, 0.8);
+    
+    &:hover, &.active {
+      box-shadow: 0 0 15px rgba(79, 70, 229, 0.5);
+    }
+  }
+}
+
+/* Additional dark mode improvements */
+.dark-theme * {
+  &::selection {
+    background-color: rgba(79, 70, 229, 0.3);
+    color: var(--text-primary);
+  }
+}
+
+/* Scrollbar styling for dark mode */
+.dark-theme {
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color);
   }
 }
