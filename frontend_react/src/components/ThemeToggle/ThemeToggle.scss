@@ -1,0 +1,115 @@
+// src/components/ThemeToggle/ThemeToggle.scss
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+
+  @media screen and (max-width: 768px) {
+    top: 15px;
+    right: 15px;
+  }
+
+  &__button {
+    width: 60px;
+    height: 32px;
+    border-radius: 20px;
+    border: 2px solid var(--border-color);
+    background: var(--toggle-bg);
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0;
+    outline: none;
+    box-shadow: var(--toggle-shadow);
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: var(--toggle-hover-shadow);
+    }
+
+    &:focus {
+      box-shadow: var(--toggle-focus-shadow);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    &.light {
+      background: linear-gradient(135deg, #ffd700, #ffed4e);
+      border-color: #ffa500;
+    }
+
+    &.dark {
+      background: linear-gradient(135deg, #2c3e50, #1a252f);
+      border-color: #34495e;
+    }
+  }
+
+  &__slider {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 24px;
+    height: 24px;
+    background: var(--slider-bg);
+    border-radius: 50%;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--slider-shadow);
+
+    .theme-toggle__button.dark & {
+      transform: translateX(26px);
+      background: #f1c40f;
+    }
+
+    .theme-toggle__button.light & {
+      background: #fff;
+    }
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--icon-color);
+    transition: all 0.3s ease;
+
+    .theme-toggle__button.dark & {
+      color: #2c3e50;
+    }
+
+    .theme-toggle__button.light & {
+      color: #f39c12;
+    }
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+}
+
+// CSS Variables for theme toggle
+:root {
+  --toggle-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --border-color: #e1e8ed;
+  --slider-bg: #ffffff;
+  --icon-color: #64748b;
+  --toggle-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --toggle-hover-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --toggle-focus-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+  --slider-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.dark-theme {
+  --border-color: #374151;
+  --slider-bg: #1f2937;
+  --icon-color: #f3f4f6;
+  --toggle-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --toggle-hover-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --slider-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}

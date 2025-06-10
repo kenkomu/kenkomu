@@ -1,0 +1,88 @@
+.dark-mode-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--secondary-color);
+    outline-offset: 2px;
+    border-radius: 20px;
+  }
+
+  .toggle-track {
+    width: 50px;
+    height: 26px;
+    background-color: var(--lightGray-color);
+    border-radius: 13px;
+    position: relative;
+    transition: background-color 0.3s ease;
+    border: 2px solid var(--gray-color);
+
+    .dark-theme & {
+      background-color: var(--dark-secondary);
+      border-color: var(--dark-accent);
+    }
+
+    .toggle-thumb {
+      width: 22px;
+      height: 22px;
+      background-color: var(--white-color);
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 2px;
+      transform: translateY(-50%);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+      .dark-theme & {
+        transform: translateY(-50%) translateX(22px);
+        background-color: var(--dark-surface);
+      }
+
+      .toggle-icon {
+        font-size: 12px;
+        line-height: 1;
+        transition: transform 0.3s ease;
+
+        .dark-theme & {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: 2000px) {
+    .toggle-track {
+      width: 70px;
+      height: 36px;
+      border-radius: 18px;
+
+      .toggle-thumb {
+        width: 32px;
+        height: 32px;
+        left: 2px;
+
+        .dark-theme & {
+          transform: translateY(-50%) translateX(32px);
+        }
+
+        .toggle-icon {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
+
+
