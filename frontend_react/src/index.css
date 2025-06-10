@@ -3,26 +3,13 @@
 :root {
   --font-base: "DM Sans", sans-serif;
 
-  /* Common colors */
+  --primary-color: #edf2f8;
   --secondary-color: #313bac;
   --black-color: #030303;
   --lightGray-color: #e4e4e4;
   --gray-color: #6b7688;
   --brown-color: #46364a;
   --white-color: #ffffff;
-
-  /* Light theme colors (default) */
-  --background-color: #edf2f8;
-  --text-color: #030303;
-  --primary-color: #edf2f8;
-}
-
-/* Dark theme colors */
-[data-theme="dark"] {
-  --background-color: #1a1a1a;
-  --text-color: #ffffff;
-  --primary-color: #2a2a2a;
-  --lightGray-color: #444444;
 }
 
 * {
@@ -30,10 +17,4 @@
   padding: 0;
   margin: 0;
   scroll-behavior: smooth;
-}
-
-body {
-  background-color: var(--background-color);
-  color: var(--text-color);
-  transition: background-color 0.3s ease, color 0.3s ease;
 }

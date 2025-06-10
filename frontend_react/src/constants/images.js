@@ -37,7 +37,7 @@ import spotify from '../assets/spotify.png';
 import nextjs from '../assets/nextjs.png';
 import rust from '../assets/Rust.png';
 
-export default {
+const images = {
   email,
   mobile,
   api,
@@ -74,3 +74,5 @@ export default {
   skype,
   spotify,
 };
+
+export default images;
