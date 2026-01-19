@@ -22,7 +22,7 @@
     
   <li>🔭  I bring my strong aptitude for analytical thinking, disciplined problem-solving, collaborative style, and strong communication skills.</a>
   
-  <li>💬 I have exerpt experience in building Rust applications and blockchain applications</li>
+  <li>💬 I have expert experience in building Rust applications and blockchain applications</li>
   <!-- About me section: END -->
 
 <!-- Conecct section -->
