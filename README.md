@@ -1,4 +1,4 @@
-<h2 align="center">Hello there<img src="https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" width="30px"></h2>
+<h2 align="center">Hello there <img src="https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" width="30px"></h2>
 
 <p align="center">
   <a href="https://github.com/DenverCoder1/readme-typing-svg">
@@ -7,7 +7,7 @@
 </p>
 
 <p align="left">
-  <img src="https://komarev.com/ghpvc/?username=kenkomu&label=Profile%20views&color=0e75b6&style=flat" alt="profile views" />
+  <img src="https://komarev.com/ghpvc/?username=kenkomu&label=Profile%20views&color=0e75b6&style=flat" alt="kenkomu profile views" />
 </p>
 
 <h2>⚡️ About Me</h2>
@@ -31,8 +31,14 @@
   </a>
 </p>
 
+---
+
 ### :octocat: My stats
 
 <p align="left">
-  <img src="https://github-readme-stats.vercel.app/api?username=kenkomu&show_icons=true&theme=radical" alt="kenkomu's GitHub stats" />
+  <img src="https://github-readme-stats-eight-theta.vercel.app/api?username=kenkomu&show_icons=true&theme=radical&hide_border=false" alt="GitHub Stats" />
+</p>
+
+<p align="left">
+  <img src="https://github-readme-stats-eight-theta.vercel.app/api/top-langs/?username=kenkomu&layout=compact&theme=radical&hide_border=false" alt="Top Languages" />
 </p>
