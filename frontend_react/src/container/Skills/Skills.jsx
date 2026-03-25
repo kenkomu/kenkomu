@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Tooltip as ReactTooltip } from 'react-tooltip'; // Updated import
+import { Tooltip as ReactTooltip } from 'react-tooltip';
 
 import { AppWrap, MotionWrap } from '../../wrapper';
 import { urlFor, client } from '../../client';
@@ -11,28 +11,22 @@ const Skills = () => {
   const [skills, setSkills] = useState([]);
 
   useEffect(() => {
-    const query = '*[_type == "experiences"]';
-    const skillsQuery = '*[_type == "skills"]';
-
-    client.fetch(query).then((data) => {
-      setExperiences(data);
-    });
-
-    client.fetch(skillsQuery).then((data) => {
-      setSkills(data);
-    });
+    client.fetch('*[_type == "experiences"]').then(setExperiences).catch(() => {});
+    client.fetch('*[_type == "skills"]').then(setSkills).catch(() => {});
   }, []);
 
   return (
     <>
-      <h2 className="head-text">Skills & Experiences</h2>
+      <h2 className="head-text">Skills & <span>Experiences</span></h2>
 
       <div className="app__skills-container">
         <motion.div className="app__skills-list">
           {skills.map((skill) => (
             <motion.div
-              whileInView={{ opacity: [0, 1] }}
-              transition={{ duration: 0.5 }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3 }}
               className="app__skills-item app__flex"
               key={skill.name}
             >
@@ -46,6 +40,7 @@ const Skills = () => {
             </motion.div>
           ))}
         </motion.div>
+
         <div className="app__skills-exp">
           {experiences.map((experience) => (
             <motion.div
@@ -57,27 +52,25 @@ const Skills = () => {
               </div>
               <motion.div className="app__skills-exp-works">
                 {experience.works.map((work) => (
-                  <>
+                  <React.Fragment key={work.name}>
                     <motion.div
                       whileInView={{ opacity: [0, 1] }}
+                      viewport={{ once: true }}
                       transition={{ duration: 0.5 }}
                       className="app__skills-exp-work"
-                      data-tip
-                      data-for={work.name}
-                      key={work.name}
+                      data-tooltip-id={work.name}
                     >
                       <h4 className="bold-text">{work.name}</h4>
                       <p className="p-text">{work.company}</p>
                     </motion.div>
                     <ReactTooltip
                       id={work.name}
-                      effect="solid"
-                      arrowColor="#fff"
+                      place="top"
                       className="skills-tooltip"
                     >
-                      {work.desc}
+                      <p>{work.desc}</p>
                     </ReactTooltip>
-                  </>
+                  </React.Fragment>
                 ))}
               </motion.div>
             </motion.div>

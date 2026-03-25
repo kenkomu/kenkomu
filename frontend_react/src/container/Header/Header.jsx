@@ -46,7 +46,7 @@ const Header = () => {
         transition={{ duration: 0.5, delayChildren: 0.5 }}
         className='app__header-img'
       >
-        <img src={images.profile} alt='profile_bg' />
+        <img src={images.profile} alt="Kenneth Komu - Blockchain and Web Developer" />
         <motion.img
           whileInView={{ scale: [0, 1] }}
           transition={{ duration: 1, ease: 'easeInOut' }}
@@ -58,13 +58,18 @@ const Header = () => {
 
 
       <motion.div
-        variant ={scaleVariants}
+        variants={scaleVariants}
         whileInView={scaleVariants.whileInView}
+        viewport={{ once: true }}
         className='app__header-circles'
         >
-          {[images.react, images.redux, images.rust].map((circle, index) => (
-            <div className='circle-cmp app__flex' key={`circle-${index}`}>
-              <img src={circle} alt='circle' />
+          {[
+            { src: images.react, alt: 'React' },
+            { src: images.redux, alt: 'Redux' },
+            { src: images.rust, alt: 'Rust' },
+          ].map(({ src, alt }) => (
+            <div className='circle-cmp app__flex' key={alt}>
+              <img src={src} alt={alt} />
             </div>
           ))}
       </motion.div>

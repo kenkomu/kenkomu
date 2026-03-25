@@ -3,7 +3,7 @@
   background: url("../../assets/bgIMG.png");
   background-size: cover;
   background-position: center;
-  background-repeat: repeat;
+  background-repeat: no-repeat;
   transition: all 0.3s ease;
 
   // Dark mode overlay for background image
@@ -339,19 +339,3 @@
   }
 }
 
-// Loading animation for images in dark mode
-@keyframes darkModeImageLoad {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.dark-theme .app__header-circles div img,
-.dark-theme .app__header-img img {
-  animation: darkModeImageLoad 0.5s ease-out;
-}

@@ -1,5 +1,3 @@
-"use client"
-
 import { createContext, useContext, useEffect, useState } from "react"
 
 const ThemeContext = createContext()
@@ -12,19 +10,25 @@ export const useTheme = () => {
   return context
 }
 
-export const ThemeProvider = ({ children }) => {
-  const [isDarkMode, setIsDarkMode] = useState(false)
+const getInitialTheme = () => {
+  const savedTheme = localStorage.getItem("portfolio-theme")
+  if (savedTheme) return savedTheme === "dark"
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+}
 
-  // Initialize theme from localStorage or system preference
+export const ThemeProvider = ({ children }) => {
+  const [isDarkMode, setIsDarkMode] = useState(getInitialTheme)
+
+  // Listen for OS-level theme changes
   useEffect(() => {
-    const savedTheme = localStorage.getItem("portfolio-theme")
-    if (savedTheme) {
-      setIsDarkMode(savedTheme === "dark")
-    } else {
-      // Check system preference
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
-      setIsDarkMode(prefersDark)
+    const mq = window.matchMedia("(prefers-color-scheme: dark)")
+    const handler = (e) => {
+      if (!localStorage.getItem("portfolio-theme")) {
+        setIsDarkMode(e.matches)
+      }
     }
+    mq.addEventListener("change", handler)
+    return () => mq.removeEventListener("change", handler)
   }, [])
 
   // Apply theme to document and save to localStorage

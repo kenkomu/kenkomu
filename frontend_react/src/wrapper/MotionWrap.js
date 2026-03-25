@@ -6,8 +6,10 @@ import { motion } from 'framer-motion';
 const MotionWrap = (Component, classNames) => function HOC() {
   return (
     <motion.div
-      whileInView={{ y: [100, 50, 0], opacity: [0, 0, 1] }}
-      transition={{ duration: 0.5 }}
+      initial={{ y: 50, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
       className={`${classNames} app__flex`}
     >
       <Component />
