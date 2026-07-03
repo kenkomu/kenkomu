@@ -42,17 +42,30 @@
 
 .copyright {
   width: 100%;
-  padding: 2rem 0 0;
+  max-width: 720px;
+  margin: 3rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
 
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-end;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
 
   p {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--text-primary);
+    color: var(--text-secondary);
     transition: color 0.3s ease;
+  }
+
+  p:first-child::after {
+    content: '·';
+    margin-left: 0.5rem;
+    color: var(--text-secondary);
   }
 }
 
@@ -202,7 +215,8 @@
   }
 
   .copyright {
-    padding: 2rem;
+    margin-top: 2rem;
+    padding: 1.5rem 1rem 0;
   }
 }
 

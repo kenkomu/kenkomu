@@ -64,7 +64,6 @@ const Header = () => {
         className='app__header-circles'
         >
           {[
-            { src: images.react, alt: 'React' },
             { src: images.redux, alt: 'Redux' },
             { src: images.rust, alt: 'Rust' },
           ].map(({ src, alt }) => (

@@ -5,9 +5,11 @@
   right: 20px;
   z-index: 1000;
 
-  @media screen and (max-width: 768px) {
-    top: 15px;
-    right: 15px;
+  // Below 900px the navbar shows a hamburger button at the right edge.
+  // Shift the toggle left of it so the two controls don't overlap.
+  @media screen and (max-width: 900px) {
+    top: 20px;
+    right: 72px;
   }
 
   &__button {

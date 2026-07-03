@@ -13,7 +13,8 @@ export const useTheme = () => {
 const getInitialTheme = () => {
   const savedTheme = localStorage.getItem("portfolio-theme")
   if (savedTheme) return savedTheme === "dark"
-  return window.matchMedia("(prefers-color-scheme: dark)").matches
+  // Default to light mode when the visitor has no saved preference
+  return false
 }
 
 export const ThemeProvider = ({ children }) => {
