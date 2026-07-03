@@ -11,7 +11,7 @@ const Skills = () => {
   const [skills, setSkills] = useState([]);
 
   useEffect(() => {
-    client.fetch('*[_type == "experiences"]').then(setExperiences).catch(() => {});
+    client.fetch('*[_type == "experiences"] | order(year asc)').then(setExperiences).catch(() => {});
     client.fetch('*[_type == "skills"]').then(setSkills).catch(() => {});
   }, []);
 

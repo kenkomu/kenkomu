@@ -18,6 +18,11 @@ const App = () => {
                 <Skills />
                 {/* <Testimonial /> */}
                 <Footer />
+
+                <footer className="copyright">
+                    <p className="p-text">© 2026 Kenneth</p>
+                    <p className="p-text">All rights reserved</p>
+                </footer>
             </div>
         </ThemeProvider>
     )
