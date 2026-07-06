@@ -11,9 +11,10 @@ export const useTheme = () => {
 }
 
 const getInitialTheme = () => {
-  const savedTheme = localStorage.getItem("portfolio-theme")
-  if (savedTheme) return savedTheme === "dark"
-  // Default to light mode when the visitor has no saved preference
+  // Dark mode is disabled for now — always start in light mode, ignoring any
+  // previously-saved preference. To re-enable, restore the commented lines below.
+  // const savedTheme = localStorage.getItem("portfolio-theme")
+  // if (savedTheme) return savedTheme === "dark"
   return false
 }
 

@@ -3,14 +3,16 @@ import React from 'react';
 import { About, Footer, Header, Skills, Work } from './container';
 import { Navbar } from './components';
 import { ThemeProvider } from './context/ThemeContext';
-import ThemeToggle from './components/ThemeToggle/ThemeToggle';
+// Dark mode is disabled for now — re-enable by restoring this import,
+// the <ThemeToggle /> below, and getInitialTheme() in ThemeContext.js
+// import ThemeToggle from './components/ThemeToggle/ThemeToggle';
 import './App.scss';
 
 const App = () => {
     return (
         <ThemeProvider>
             <div className="app">
-                <ThemeToggle />
+                {/* <ThemeToggle /> */}
                 <Navbar />
                 <Header />
                 <About />
