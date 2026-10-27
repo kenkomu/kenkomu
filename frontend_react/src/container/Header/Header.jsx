@@ -1,96 +1,130 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { motion } from 'framer-motion';
-import { HiArrowDown, HiArrowUpRight } from 'react-icons/hi2';
+import { HiArrowDown } from 'react-icons/hi2';
 import { images } from '../../constants/';
 import profile from '../../constants/profile';
-import useWorks from '../../hooks/useWorks';
+import { imageUrl } from '../../client';
+import useWorks, { workSlug } from '../../hooks/useWorks';
 import SocialLinks from '../../components/SocialLinks';
+import LocalTime from '../../components/LocalTime';
 import './Header.scss';
 
-const tileMotion = {
-  hidden: { opacity: 0, y: 16 },
-  show: (i) => ({ opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.05 * i, ease: [0.22, 1, 0.36, 1] } }),
+const FAN_SIZE = 5;
+const ease = [0.22, 1, 0.36, 1];
+
+const intro = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.07 } },
 };
 
-const Tile = ({ i, className, children, ...rest }) => (
-  <motion.div className={`tile hero__tile ${className}`} variants={tileMotion} custom={i} {...rest}>
-    {children}
-  </motion.div>
-);
+const item = {
+  hidden: { opacity: 0, y: 16 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease } },
+};
 
-const formatTime = () =>
-  new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: profile.timeZone }).format(new Date());
+// Let the Work section open the panel itself, so closing it restores the URL.
+// Modified clicks (new tab, new window) keep the normal link behaviour.
+const openFromHero = (work) => (e) => {
+  if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  e.preventDefault();
+  window.dispatchEvent(new CustomEvent('portfolio:open-project', { detail: work }));
+};
 
-const LocalTime = () => {
-  const [time, setTime] = useState(formatTime);
-  useEffect(() => {
-    const id = setInterval(() => setTime(formatTime()), 20000);
-    return () => clearInterval(id);
-  }, []);
-  return <time>{time}</time>;
+// Covers fan out from the middle card: tilted and lowered further toward the edges
+const fanPose = (i, count) => {
+  const offset = i - (count - 1) / 2;
+  return { rotate: offset * 5, y: Math.abs(offset) * 16, z: count - Math.abs(offset) };
 };
 
 const Header = () => {
   const { works, loading, error } = useWorks();
+  const covers = works.filter((w) => w.imgUrl).slice(0, FAN_SIZE);
   const liveCount = works.filter((w) => w.status === 'Live').length;
-  const { availability, nowBuilding } = profile;
+  const { availability } = profile;
 
   return (
     <section id='home' className='hero'>
-      <motion.div className='container hero__grid' initial='hidden' animate='show'>
-        <Tile i={0} className='hero__intro'>
-          <p className='eyebrow'>{profile.role}</p>
-          <h1 className='hero__title'>{profile.headline}</h1>
-          <p className='hero__lead'>{profile.intro}</p>
-          <div className='hero__actions'>
+      <div className='container'>
+        <motion.div className='hero__intro' variants={intro} initial='hidden' animate='show'>
+          <motion.div className='hero__badge' variants={item}>
+            <img className='hero__avatar' src={images.profile} alt='' width='40' height='40' />
+            {availability.open && (
+              <span className='hero__status'>
+                <span className='hero__pulse' aria-hidden='true' />
+                {availability.label}
+              </span>
+            )}
+            <span className='hero__where'>{profile.location.split(',')[0]} · <LocalTime /></span>
+          </motion.div>
+
+          <motion.h1 className='hero__title' variants={item}>
+            {profile.headline} <span>{profile.headlineAccent}</span>
+          </motion.h1>
+          <motion.p className='hero__lead' variants={item}>{profile.intro}</motion.p>
+
+          <motion.div className='hero__actions' variants={item}>
             <a className='btn btn--primary' href='#work'>See my work <HiArrowDown aria-hidden='true' /></a>
             <a className='btn btn--ghost' href='#contact'>Get in touch</a>
-          </div>
-          <SocialLinks className='hero__socials' />
-        </Tile>
+          </motion.div>
+          <motion.div variants={item}>
+            <SocialLinks className='hero__socials' />
+          </motion.div>
+        </motion.div>
 
-        <Tile i={1} className='hero__photo'>
-          <img src={images.profile} alt={profile.name} width='853' height='853' fetchPriority='high' />
-        </Tile>
+        <div className='hero__fan' aria-label='Recent projects'>
+          {loading || error
+            ? Array.from({ length: FAN_SIZE }).map((_, i) => {
+                const pose = fanPose(i, FAN_SIZE);
+                return (
+                  <div
+                    key={i}
+                    className='hero__card hero__card--skeleton'
+                    style={{ zIndex: pose.z, transform: `translateY(${pose.y}px) rotate(${pose.rotate}deg)` }}
+                    aria-hidden='true'
+                  />
+                );
+              })
+            : covers.map((work, i) => {
+                const pose = fanPose(i, covers.length);
+                return (
+                  <motion.a
+                    key={work._id}
+                    href={`#work/${workSlug(work)}`}
+                    className='hero__card'
+                    style={{ zIndex: pose.z }}
+                    aria-label={`${work.title}: open project details`}
+                    onClick={openFromHero(work)}
+                    initial={{ opacity: 0, y: 80, rotate: 0 }}
+                    animate={{
+                      opacity: 1,
+                      y: pose.y,
+                      rotate: pose.rotate,
+                      transition: { type: 'spring', stiffness: 140, damping: 20, delay: 0.3 + i * 0.07 },
+                    }}
+                    whileHover={{ y: pose.y - 20, rotate: 0, scale: 1.06, transition: { type: 'spring', stiffness: 320, damping: 24 } }}
+                    whileFocus={{ y: pose.y - 20, rotate: 0, scale: 1.06 }}
+                  >
+                    <img src={imageUrl(work.imgUrl, 640, 400)} alt='' width='640' height='400' />
+                    <span className='hero__card-label'>{work.title}</span>
+                  </motion.a>
+                );
+              })}
+        </div>
+      </div>
 
-        <Tile i={2} className='hero__stat'>
-          <p className='eyebrow'>Projects</p>
-          <p className='hero__stat-number' aria-live='polite'>{loading || error ? '–' : works.length}</p>
-          <p className='hero__muted'>{loading ? 'Loading…' : error ? 'See them below' : `${liveCount} live in production`}</p>
-        </Tile>
-
-        {availability.open && (
-          <Tile i={3} className='hero__status'>
-            <span className='hero__pulse' aria-hidden='true' />
-            <p className='hero__status-label'>{availability.label}</p>
-            <p className='hero__muted'>{availability.detail}</p>
-          </Tile>
-        )}
-
-        <Tile i={4} className='hero__place'>
-          <p className='eyebrow'>Based in</p>
-          <p className='hero__place-name'>{profile.location}</p>
-          <p className='hero__muted'><LocalTime /> {profile.timeZoneLabel}</p>
-        </Tile>
-
-        <Tile i={5} className='hero__now'>
-          <p className='eyebrow'><span className='hero__now-dot' aria-hidden='true' /> Now building</p>
-          <p className='hero__now-title'>{nowBuilding.title}</p>
-          <p className='hero__muted'>{nowBuilding.description}</p>
-          {nowBuilding.link && (
-            <a className='hero__link' href={nowBuilding.link} target='_blank' rel='noopener noreferrer'>
-              Follow along on GitHub <HiArrowUpRight aria-hidden='true' />
-            </a>
-          )}
-        </Tile>
-
-        <Tile i={6} className='hero__chains'>
+      <div className='hero__strip'>
+        <div className='container hero__strip-inner'>
           <p className='eyebrow'>Shipped on</p>
-          <ul>
-            {profile.chains.map((chain) => <li key={chain} className='chip'>{chain}</li>)}
+          <ul className='hero__chains'>
+            {profile.chains.map((chain) => <li key={chain}>{chain}</li>)}
           </ul>
-        </Tile>
-      </motion.div>
+          {!loading && !error && (
+            <p className='hero__count'>
+              <strong>{works.length}</strong> projects · <strong>{liveCount}</strong> live
+            </p>
+          )}
+        </div>
+      </div>
     </section>
   )
 }

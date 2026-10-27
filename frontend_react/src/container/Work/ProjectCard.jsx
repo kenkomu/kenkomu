@@ -18,7 +18,6 @@ export const StatusBadge = ({ status }) =>
 const ProjectCard = ({ work, size = 'sm', onOpen }) => {
   const width = size === 'lg' ? 1200 : 720;
   const height = Math.round(width * 0.625);
-  const meta = [work.tags?.[0], work.year].filter(Boolean).join(' · ');
 
   return (
     <motion.article
@@ -36,13 +35,21 @@ const ProjectCard = ({ work, size = 'sm', onOpen }) => {
         )}
         <StatusBadge status={work.status} />
         <span className='work-card__arrow' aria-hidden='true'><HiArrowUpRight /></span>
+        {work.tags?.length > 0 && (
+          <ul className='work-card__tags'>
+            {work.tags.map((tag) => <li key={tag}>{tag.replace(/ App$/, '')}</li>)}
+          </ul>
+        )}
       </div>
 
       <div className='work-card__body'>
-        {meta && <p className='work-card__meta'>{meta}</p>}
-        <h3 className='work-card__title'>
-          <button type='button' onClick={() => onOpen(work)} aria-haspopup='dialog'>{work.title}</button>
-        </h3>
+        {work.client && <p className='work-card__meta'>{work.client}</p>}
+        <div className='work-card__head'>
+          <h3 className='work-card__title'>
+            <button type='button' onClick={() => onOpen(work)} aria-haspopup='dialog'>{work.title}</button>
+          </h3>
+          {work.year && <span className='work-card__year'>{work.year}</span>}
+        </div>
         {work.description && <p className='work-card__desc'>{work.description}</p>}
         {size !== 'sm' && work.stack?.length > 0 && (
           <ul className='work-card__stack'>

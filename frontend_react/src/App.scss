@@ -23,6 +23,64 @@
   }
 }
 
+// Blueprint frame: guide lines just outside the content edges, with a + where
+// each section's top border crosses them. z-index -1 draws them over the page
+// background but under all content. Don't isolate #main: the project panel
+// inside it has to stack above the navbar.
+#main {
+  position: relative;
+
+  @media screen and (min-width: 768px) {
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      z-index: -1;
+      width: min(calc(100% - 16px), 1184px);
+      border-inline: 1px solid var(--border);
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+  }
+}
+
+.section,
+.hero__strip {
+  position: relative;
+  border-top: 1px solid var(--border);
+
+  @media screen and (min-width: 768px) {
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: -7px;
+      width: 14px;
+      height: 14px;
+      background:
+        linear-gradient(var(--border-strong), var(--border-strong)) center / 1px 100% no-repeat,
+        linear-gradient(var(--border-strong), var(--border-strong)) center / 100% 1px no-repeat;
+      pointer-events: none;
+    }
+
+    &::before {
+      left: calc(50% - min(calc(100% - 16px), 1184px) / 2 - 7px);
+    }
+
+    &::after {
+      right: calc(50% - min(calc(100% - 16px), 1184px) / 2 - 7px);
+    }
+  }
+}
+
+.social-links {
+  display: flex;
+  gap: 8px;
+  list-style: none;
+}
+
 .section-head {
   display: flex;
   flex-wrap: wrap;

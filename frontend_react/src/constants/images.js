@@ -24,6 +24,7 @@ import about03 from '../assets/about03.png';
 import about04 from '../assets/about04.png';
 
 import profile from '../assets/profile1.png';
+import portrait from '../assets/ken-portrait.jpg';
 import circle from '../assets/circle.svg';
 import logo from '../assets/logo.png';
 
@@ -64,6 +65,7 @@ const images = {
   about03,
   about04,
   profile,
+  portrait,
   circle,
   logo,
   adidas,

@@ -1,169 +1,61 @@
 .hero {
-  padding-top: 96px;
-  padding-bottom: 24px;
+  padding-top: 112px;
 
   @media screen and (min-width: 1024px) {
-    padding-top: 112px;
+    padding-top: 144px;
   }
-}
-
-.hero__grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-template-areas:
-    'intro  intro'
-    'photo  photo'
-    'stat   status'
-    'now    now'
-    'place  place'
-    'chains chains';
-  gap: 12px;
-
-  @media screen and (min-width: 640px) {
-    grid-template-areas:
-      'intro  intro'
-      'photo  stat'
-      'photo  status'
-      'now    now'
-      'place  chains';
-    gap: 16px;
-  }
-
-  @media screen and (min-width: 1024px) {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    grid-template-areas:
-      'intro intro photo stat'
-      'intro intro photo status'
-      'place now   now   chains';
-  }
-}
-
-.hero__tile {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 24px;
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-}
-
-.hero__muted {
-  font-size: 0.925rem;
-  color: var(--muted);
 }
 
 .hero__intro {
-  grid-area: intro;
-  justify-content: center;
-  gap: 0;
-  padding: 32px 24px;
-
-  @media screen and (min-width: 768px) {
-    padding: 48px 44px;
-  }
-}
-
-.hero__title {
-  margin-top: 18px;
-  font-family: var(--font-display);
-  font-size: clamp(2.4rem, 5.2vw, 4.25rem);
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: -0.04em;
-  color: var(--ink);
-  text-wrap: balance;
-}
-
-.hero__lead {
-  max-width: 52ch;
-  margin-top: 20px;
-  font-size: 1.075rem;
-  color: var(--muted);
-}
-
-.hero__actions {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 900px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.hero__badge {
+  display: inline-flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 28px;
+  align-items: center;
+  justify-content: center;
+  gap: 6px 12px;
+  padding: 5px 16px 5px 5px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background-color: var(--surface);
+  box-shadow: var(--shadow-sm);
+  font-size: 0.875rem;
 }
 
-.hero__socials {
-  margin-top: 28px;
-}
-
-.social-links {
-  display: flex;
-  gap: 8px;
-  list-style: none;
-}
-
-.hero__photo {
-  grid-area: photo;
-  min-height: 320px;
-  padding: 0;
-  justify-content: flex-end;
-  background:
-    radial-gradient(circle at 1px 1px, rgba(37, 99, 235, 0.18) 1px, transparent 0) 0 0 / 18px 18px,
-    linear-gradient(170deg, var(--accent-soft) 0%, #c7d7fe 100%);
-
-  img {
-    width: 100%;
-    height: 100%;
-    max-height: 420px;
-    object-fit: contain;
-    object-position: bottom center;
-  }
-
-  @media screen and (min-width: 1024px) {
-    min-height: 0;
-
-    img {
-      position: absolute;
-      inset: 0;
-      max-height: none;
-      object-fit: cover;
-      object-position: 50% 100%;
-    }
-  }
-}
-
-.hero__stat {
-  grid-area: stat;
-  justify-content: space-between;
-}
-
-.hero__stat-number {
-  font-family: var(--font-display);
-  font-size: clamp(3rem, 6vw, 4.5rem);
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: -0.04em;
-  color: var(--ink);
+.hero__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--accent-soft);
+  object-fit: cover;
+  object-position: top;
 }
 
 .hero__status {
-  grid-area: status;
-  justify-content: flex-end;
-  background-color: var(--success-soft);
-  border-color: transparent;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: var(--success);
 }
 
-.hero__status-label {
-  font-family: var(--font-display);
-  font-size: 1.35rem;
-  font-weight: 600;
-  line-height: 1.15;
-  color: var(--ink);
+.hero__where {
+  padding-left: 12px;
+  border-left: 1px solid var(--border);
+  color: var(--muted);
 }
 
 .hero__pulse {
-  position: absolute;
-  top: 24px;
-  left: 24px;
-  width: 12px;
-  height: 12px;
+  position: relative;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background-color: var(--success);
 
@@ -179,80 +71,184 @@
 
 @keyframes hero-pulse {
   from { transform: scale(1); opacity: 0.6; }
-  to { transform: scale(2.8); opacity: 0; }
+  to { transform: scale(3); opacity: 0; }
 }
 
-.hero__place {
-  grid-area: place;
-  justify-content: space-between;
-}
-
-.hero__place-name {
-  margin-top: auto;
+.hero__title {
+  margin-top: 28px;
   font-family: var(--font-display);
-  font-size: 1.35rem;
+  font-size: clamp(2.6rem, 7vw, 5.75rem);
   font-weight: 600;
-  line-height: 1.15;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
   color: var(--ink);
-}
+  text-wrap: balance;
 
-.hero__now {
-  grid-area: now;
-  background-color: var(--ink);
-  border-color: var(--ink);
-  color: var(--bg);
-
-  .eyebrow,
-  .hero__muted {
-    color: color-mix(in srgb, var(--bg) 70%, transparent);
+  span {
+    color: var(--accent);
   }
 }
 
-.hero__now-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: #60a5fa;
+.hero__lead {
+  max-width: 56ch;
+  margin-top: 24px;
+  font-size: 1.125rem;
+  color: var(--muted);
+  text-wrap: pretty;
 }
 
-.hero__now-title {
-  margin-top: 8px;
-  font-family: var(--font-display);
-  font-size: 1.5rem;
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 32px;
+}
+
+.hero__socials {
+  justify-content: center;
+  margin-top: 20px;
+}
+
+// Fanned stack of the latest project covers
+.hero__fan {
+  --card-w: clamp(150px, 22vw, 300px);
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 64px;
+  padding-bottom: 64px;
+
+  @media screen and (max-width: 639px) {
+    --card-w: 36vw;
+    margin-top: 48px;
+    padding-bottom: 40px;
+  }
+}
+
+.hero__card {
+  position: relative;
+  flex: 0 0 auto;
+  width: var(--card-w);
+  aspect-ratio: 16 / 10;
+  margin-inline: calc(var(--card-w) * -0.12);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background-color: var(--surface-muted);
+  box-shadow: 0 28px 50px -24px rgba(16, 16, 20, 0.45);
+  outline-offset: 4px;
+
+  // Lift the hovered card above its neighbours (overrides the inline stacking order)
+  &:hover,
+  &:focus-visible {
+    z-index: 30 !important;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media screen and (max-width: 639px) {
+    &:first-child,
+    &:nth-child(5) {
+      display: none;
+    }
+  }
+}
+
+.hero__card-label {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background-color: rgba(11, 11, 12, 0.8);
+  color: #fff;
+  font-size: 0.8rem;
   font-weight: 600;
-  line-height: 1.15;
-  color: var(--bg);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.2s ease, transform 0.2s var(--ease-out);
+
+  .hero__card:hover &,
+  .hero__card:focus-visible & {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (hover: none) {
+    opacity: 1;
+    transform: none;
+  }
+
+  // Too cramped to label three overlapping covers on a phone
+  @media screen and (max-width: 639px) {
+    display: none;
+  }
 }
 
-.hero__link {
-  display: inline-flex;
+.hero__card--skeleton {
+  background: linear-gradient(100deg, var(--surface) 30%, var(--surface-muted) 50%, var(--surface) 70%) 0 0 / 300% 100%;
+  animation: hero-shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes hero-shimmer {
+  from { background-position: 100% 0; }
+  to { background-position: 0 0; }
+}
+
+// "Shipped on" strip
+.hero__strip {
+  margin-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.hero__strip-inner {
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 6px;
-  align-self: flex-start;
-  min-height: 44px;
-  margin-top: 6px;
-  font-size: 0.925rem;
-  font-weight: 600;
-  color: #93c5fd;
-  text-decoration: none;
-
-  svg {
-    transition: transform 0.2s var(--ease-out);
-  }
-
-  &:hover svg {
-    transform: translate(2px, -2px);
-  }
+  gap: 12px 32px;
+  padding-block: 24px;
 }
 
 .hero__chains {
-  grid-area: chains;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 28px;
+  list-style: none;
 
-  ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 12px;
-    list-style: none;
+  li {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink-soft);
+  }
+
+  @media screen and (max-width: 639px) {
+    gap: 4px 18px;
+
+    li {
+      font-size: 1rem;
+    }
+  }
+}
+
+.hero__count {
+  margin-left: auto;
+  font-size: 0.925rem;
+  color: var(--muted);
+
+  strong {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  @media screen and (max-width: 767px) {
+    margin-left: 0;
   }
 }

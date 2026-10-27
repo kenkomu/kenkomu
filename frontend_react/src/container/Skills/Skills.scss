@@ -1,52 +1,72 @@
-.experience {
-  border-top: 1px solid var(--border);
-}
-
-.experience__grid {
-  display: grid;
-  gap: 40px;
-
-  @media screen and (min-width: 1024px) {
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    align-items: start;
-    gap: 64px;
-  }
-}
-
-.experience__timeline {
+.experience__list {
   list-style: none;
 }
 
 .experience__year {
   display: grid;
-  gap: 8px 24px;
-  padding-block: 24px;
+  gap: 4px 24px;
+  padding-block: 12px;
   border-top: 1px solid var(--border);
 
   &:first-child {
     border-top: 0;
-    padding-top: 0;
   }
 
-  @media screen and (min-width: 640px) {
-    grid-template-columns: 96px minmax(0, 1fr);
+  @media screen and (min-width: 768px) {
+    grid-template-columns: 120px minmax(0, 1fr);
   }
 
   > ul {
     display: grid;
-    gap: 20px;
+    gap: 4px;
     list-style: none;
   }
 }
 
 .experience__year-label {
+  padding-top: 18px;
   font-family: var(--font-mono);
   font-size: 0.9rem;
   font-weight: 500;
   color: var(--accent);
+
+  @media screen and (max-width: 767px) {
+    padding-top: 12px;
+  }
 }
 
+// Each role is a row that lifts into a card on hover, like a resume you can scan
 .experience__item {
+  padding: 18px 20px;
+  margin-inline: -20px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    background-color: var(--surface);
+    border-color: var(--border);
+    box-shadow: var(--shadow-sm);
+  }
+
+  @media screen and (max-width: 767px) {
+    padding: 12px 0;
+    margin-inline: 0;
+
+    &:hover {
+      background-color: transparent;
+      border-color: transparent;
+      box-shadow: none;
+    }
+  }
+}
+
+.experience__item-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
+
   h3 {
     font-family: var(--font-display);
     font-size: 1.2rem;
@@ -57,6 +77,15 @@
   }
 }
 
+.experience__badge {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background-color: var(--success-soft);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--success);
+}
+
 .experience__company {
   font-size: 0.95rem;
   font-weight: 500;
@@ -64,62 +93,8 @@
 }
 
 .experience__desc {
-  max-width: 62ch;
+  max-width: 68ch;
   margin-top: 6px;
   font-size: 0.95rem;
   color: var(--muted);
-}
-
-.experience__stack {
-  padding: 28px;
-  box-shadow: var(--shadow-sm);
-
-  @media screen and (min-width: 1024px) {
-    position: sticky;
-    top: 112px;
-  }
-
-  ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 20px;
-    list-style: none;
-  }
-
-  li {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 14px 6px 6px;
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--ink);
-  }
-}
-
-.experience__stack-lead {
-  margin-top: 8px;
-  font-family: var(--font-display);
-  font-size: 1.35rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-}
-
-.experience__skill-icon {
-  display: grid;
-  place-items: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background-color: var(--surface-muted);
-
-  img {
-    width: 18px;
-    height: 18px;
-    object-fit: contain;
-  }
 }

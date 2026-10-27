@@ -260,11 +260,46 @@
   }
 }
 
+// Category pills sitting on the cover image
+.work-card__tags {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+
+  li {
+    padding: 4px 10px;
+    border-radius: 999px;
+    background-color: rgba(11, 11, 12, 0.72);
+    backdrop-filter: blur(6px);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #fff;
+  }
+}
+
 .work-card__body {
   display: flex;
   flex-direction: column;
   gap: 8px;
   padding: 20px 22px 24px;
+}
+
+.work-card__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.work-card__year {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--muted);
 }
 
 .work-card__meta {

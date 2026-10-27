@@ -3,7 +3,9 @@
 const profile = {
   name: 'Kenneth Komu',
   role: 'Blockchain & full-stack developer',
-  headline: 'I build payments, wallets and tools for Africa.',
+  // The accent part is shown in the brand colour after the headline
+  headline: 'I build payments, wallets and tools',
+  headlineAccent: 'for Africa.',
   intro:
     'From M-Pesa onramps on CKB and USDC remittances on Base to the field apps a fibre ISP runs on. I ship the contract, the API and the app.',
   location: 'Nairobi, Kenya',

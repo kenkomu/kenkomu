@@ -64,8 +64,13 @@ const Work = () => {
       pushedRef.current = false;
       setOpenSlug(slugFromHash());
     };
+    // hashchange also catches #work/<slug> links typed or followed from elsewhere
     window.addEventListener('popstate', sync);
-    return () => window.removeEventListener('popstate', sync);
+    window.addEventListener('hashchange', sync);
+    return () => {
+      window.removeEventListener('popstate', sync);
+      window.removeEventListener('hashchange', sync);
+    };
   }, []);
 
   const activeWork = openSlug ? works.find((w) => workSlug(w) === openSlug) : null;
@@ -83,6 +88,13 @@ const Work = () => {
     }
     setOpenSlug(workSlug(work));
   }, []);
+
+  // Requests from elsewhere on the page, like the hero's project covers
+  useEffect(() => {
+    const onRequest = (e) => openProject(e.detail);
+    window.addEventListener('portfolio:open-project', onRequest);
+    return () => window.removeEventListener('portfolio:open-project', onRequest);
+  }, [openProject]);
 
   const closeProject = () => {
     if (pushedRef.current) {
