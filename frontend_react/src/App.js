@@ -1,8 +1,10 @@
 // src/App.js
 import React from 'react';
+import { MotionConfig } from 'framer-motion';
 import { About, Footer, Header, Skills, Work } from './container';
 import { Navbar } from './components';
 import { ThemeProvider } from './context/ThemeContext';
+import profile from './constants/profile';
 // Dark mode is disabled for now — re-enable by restoring this import,
 // the <ThemeToggle /> below, and getInitialTheme() in ThemeContext.js
 // import ThemeToggle from './components/ThemeToggle/ThemeToggle';
@@ -11,21 +13,28 @@ import './App.scss';
 const App = () => {
     return (
         <ThemeProvider>
-            <div className="app">
-                {/* <ThemeToggle /> */}
-                <Navbar />
-                <Header />
-                <About />
-                <Work />
-                <Skills />
-                {/* <Testimonial /> */}
-                <Footer />
+            <MotionConfig reducedMotion="user">
+                <div className="app">
+                    <a className="skip-link" href="#main">Skip to content</a>
+                    {/* <ThemeToggle /> */}
+                    <Navbar />
+                    <main id="main">
+                        <Header />
+                        <Work />
+                        <About />
+                        <Skills />
+                        {/* <Testimonial /> */}
+                        <Footer />
+                    </main>
 
-                <footer className="copyright">
-                    <p className="p-text">© 2026 Kenneth</p>
-                    <p className="p-text">All rights reserved</p>
-                </footer>
-            </div>
+                    <footer className="site-footer">
+                        <div className="container">
+                            <p>© {new Date().getFullYear()} {profile.name}. Built with React and Sanity.</p>
+                            <a href="#home">Back to top ↑</a>
+                        </div>
+                    </footer>
+                </div>
+            </MotionConfig>
         </ThemeProvider>
     )
 }

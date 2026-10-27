@@ -14,3 +14,10 @@ export const client = sanityClient({
 const builder = imageUrlBuilder(client);
 
 export const urlFor = (source) => builder.image(source);
+
+// Resized, format-negotiated image URL. Pass a height to crop around the hotspot.
+export const imageUrl = (source, width, height) => {
+    let img = urlFor(source).width(width).auto('format').quality(80);
+    if (height) img = img.height(height).fit('crop');
+    return img.url();
+};

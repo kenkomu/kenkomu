@@ -1,266 +1,229 @@
 // src/App.scss
 .app {
-  background-color: var(--primary-color);
-  font-family: var(--font-base);
-  transition: background-color 0.3s ease;
-}
-
-.app__whitebg {
-  background-color: var(--bg-secondary);
-  transition: background-color 0.3s ease;
-}
-
-.app__primarybg {
-  background-color: var(--primary-color);
-  transition: background-color 0.3s ease;
-}
-
-.app__container {
-  width: 100%;
   min-height: 100vh;
-
-  display: flex;
-  flex-direction: row;
+  overflow-x: clip;
 }
 
-.app__flex {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.app__wrapper {
-  flex: 1;
+.container {
   width: 100%;
-  flex-direction: column;
-  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 16px;
 
-  @media screen and (max-width: 450px) {
-    padding: 4rem 1rem 2rem;
+  @media screen and (min-width: 768px) {
+    padding-inline: 32px;
   }
 }
 
-.copyright {
-  width: 100%;
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 1.5rem 1rem 2.5rem;
-  border-top: 1px solid var(--border-color);
+.section {
+  padding-block: 72px;
 
+  @media screen and (min-width: 1024px) {
+    padding-block: 112px;
+  }
+}
+
+.section-head {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px 40px;
+  margin-bottom: 40px;
+}
+
+.eyebrow {
+  display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.section-title {
+  margin-top: 12px;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.5vw, 3.25rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+
+.section-lead {
+  max-width: 46ch;
+  font-size: 1.05rem;
+  color: var(--muted);
+}
+
+// :where() keeps these shared styles at zero specificity so component classes can override them
+:where(.tile) {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+:where(.btn) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 0 22px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: transform 0.2s var(--ease-out), background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+
+  &:active {
+    transform: scale(0.97);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+}
+
+.btn--primary {
+  background-color: var(--ink);
+  color: var(--bg);
+
+  &:hover:not(:disabled) {
+    background-color: var(--accent);
+    color: var(--on-accent);
+  }
+}
+
+.btn--ghost {
+  background-color: transparent;
+  border-color: var(--border-strong);
+  color: var(--ink);
+
+  &:hover {
+    border-color: var(--ink);
+  }
+}
+
+.btn--sm {
+  min-height: 40px;
+  padding: 0 16px;
+  font-size: 0.875rem;
+}
+
+:where(.chip) {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background-color: var(--surface-muted);
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--ink-soft);
+}
+
+:where(.icon-btn) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background-color: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s var(--ease-out);
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  &:hover {
+    background-color: var(--ink);
+    border-color: var(--ink);
+    color: var(--bg);
+  }
+
+  &:active {
+    transform: scale(0.94);
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 100;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  background-color: var(--ink);
+  color: var(--bg);
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-160%);
+  transition: transform 0.2s var(--ease-out);
+
+  &:focus {
+    transform: translateY(0);
+  }
+}
+
+.site-footer {
+  border-top: 1px solid var(--border);
+
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 24px;
+    padding-block: 28px 36px;
+  }
 
   p {
-    font-size: 0.75rem;
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+
+  a {
+    font-size: 0.875rem;
     font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-secondary);
-    transition: color 0.3s ease;
-  }
-
-  p:first-child::after {
-    content: '·';
-    margin-left: 0.5rem;
-    color: var(--text-secondary);
-  }
-}
-
-.head-text {
-  font-size: 2.75rem;
-  font-weight: 800;
-  text-align: center;
-  color: var(--text-primary);
-  text-transform: capitalize;
-  transition: color 0.3s ease;
-
-  span {
-    color: var(--secondary-color);
-    transition: color 0.3s ease;
-  }
-
-  @media screen and (min-width: 2000px) {
-    font-size: 4rem;
-  }
-
-  @media screen and (max-width: 450px) {
-    font-size: 2rem;
-  }
-}
-
-.p-text {
-  font-size: 0.8rem;
-  text-align: left;
-  color: var(--text-secondary);
-  line-height: 1.5;
-  transition: color 0.3s ease;
-
-  @media screen and (min-width: 2000px) {
-    font-size: 1.75rem;
-  }
-}
-
-.bold-text {
-  font-size: 1rem;
-  font-weight: 800;
-  color: var(--text-primary);
-  text-align: left;
-  transition: color 0.3s ease;
-
-  @media screen and (min-width: 2000px) {
-    font-size: 2rem;
-  }
-
-  @media screen and (max-width: 450px) {
-    font-size: 0.9rem;
-  }
-}
-
-.app__social {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  flex-direction: column;
-
-  padding: 1rem;
-
-  div {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: var(--bg-secondary);
-    margin: 0.25rem 0;
-    border: 1px solid var(--border-color);
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    transition: all 0.3s ease-in-out;
-    box-shadow: var(--shadow);
-
-    svg {
-      width: 15px;
-      height: 15px;
-      color: var(--text-secondary);
-      transition: color 0.3s ease;
-    }
+    color: var(--ink);
+    text-decoration: none;
 
     &:hover {
-      background-color: var(--secondary-color);
-      border-color: var(--secondary-color);
-      box-shadow: var(--shadow-hover);
-      transform: translateY(-2px);
-
-      svg {
-        color: var(--white-color);
-      }
+      color: var(--accent);
     }
-
-    @media screen and (min-width: 2000px) {
-      width: 70px;
-      height: 70px;
-
-      margin: 0.5rem 0;
-
-      svg {
-        width: 30px;
-        height: 30px;
-      }
-    }
-  }
-}
-
-.app__navigation {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  padding: 1rem;
-
-  .app__navigation-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: var(--border-color);
-    margin: 0.5rem;
-
-    transition: all 0.3s ease-in-out;
-
-    &:hover {
-      background-color: var(--secondary-color);
-      transform: scale(1.2);
-    }
-
-    &.active {
-      background-color: var(--secondary-color);
-      box-shadow: 0 0 10px var(--secondary-color);
-    }
-
-    @media screen and (min-width: 2000px) {
-      width: 20px;
-      height: 20px;
-    }
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .app__navigation,
-  .app__social {
-    display: none;
-  }
-
-  .copyright {
-    margin-top: 2rem;
-    padding: 1.5rem 1rem 0;
-  }
-}
-
-/* Dark mode specific enhancements */
-.dark-theme {
-  .app__social div {
-    backdrop-filter: blur(10px);
-    background-color: rgba(30, 41, 59, 0.8);
-    border: 1px solid rgba(55, 65, 81, 0.5);
-  }
-
-  .app__navigation-dot {
-    background-color: rgba(55, 65, 81, 0.8);
-    
-    &:hover, &.active {
-      box-shadow: 0 0 15px rgba(79, 70, 229, 0.5);
-    }
-  }
-}
-
-/* Additional dark mode improvements */
-.dark-theme * {
-  &::selection {
-    background-color: rgba(79, 70, 229, 0.3);
-    color: var(--text-primary);
-  }
-}
-
-/* Scrollbar styling for dark mode */
-.dark-theme {
-  &::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: var(--bg-primary);
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: var(--border-color);
-    border-radius: 4px;
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background: var(--secondary-color);
   }
 }
