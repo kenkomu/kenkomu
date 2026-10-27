@@ -1,226 +1,150 @@
-// Example: src/components/Navbar/Navbar.scss
-// Add these styles to your existing Navbar component
-
 .app__navbar {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  
-  padding: 1rem 2rem;
-  background: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
   position: fixed;
-  z-index: 2;
-  top: 0;
+  top: 12px;
   left: 0;
   right: 0;
-  
-  transition: all 0.3s ease;
+  z-index: 50;
+  padding-inline: 12px;
+  pointer-events: none;
+}
 
-  .dark-theme & {
-    background: rgba(15, 23, 42, 0.85);
-    border: 1px solid rgba(55, 65, 81, 0.3);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+.app__navbar-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 1136px;
+  margin-inline: auto;
+  padding: 8px 8px 8px 16px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  pointer-events: auto;
+  transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+
+  .is-scrolled & {
+    background-color: color-mix(in srgb, var(--surface) 78%, transparent);
+    border-color: var(--border);
+    box-shadow: var(--shadow-md);
+    backdrop-filter: saturate(160%) blur(16px);
+    -webkit-backdrop-filter: saturate(160%) blur(16px);
   }
 }
 
 .app__navbar-logo {
-  display: flex;
-  justify-content: flex-start;
+  display: inline-flex;
   align-items: center;
+  gap: 10px;
+  margin-right: auto;
+  min-height: 44px;
+  text-decoration: none;
+  color: var(--ink);
+}
 
-  img {
-    width: 90px;
-    height: 40px;
-    filter: var(--logo-filter);
-    transition: filter 0.3s ease;
+.app__navbar-mark {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background-color: var(--accent);
+  color: var(--on-accent);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
 
-    @media screen and (min-width: 2000px) {
-      width: 180px;
-      height: 40px;
-    }
-  }
+.app__navbar-name {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 .app__navbar-links {
-  flex: 1;
   display: flex;
-  justify-content: center;
-  align-items: center;
-
+  gap: 4px;
   list-style: none;
 
-  li {
-    margin: 0 1rem;
-    cursor: pointer;
-
-    flex-direction: column;
-
-    div {
-      width: 5px;
-      height: 5px;
-      background: transparent;
-      border-radius: 50%;
-
-      margin-bottom: 5px;
-      transition: all 0.3s ease;
-    }
-
-    a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      flex-direction: column;
-
-      text-transform: uppercase;
-      font-weight: 500;
-      font-size: 0.9rem;
-      transition: all 0.3s ease;
-
-      &:hover {
-        color: var(--secondary-color);
-      }
-    }
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0 14px;
+    border-radius: 999px;
+    font-size: 0.925rem;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s ease, background-color 0.2s ease;
 
     &:hover {
-      div {
-        background: var(--secondary-color);
-      }
+      color: var(--ink);
     }
-  }
 
-  @media screen and (max-width: 900px) {
-    display: none;
+    &.is-active {
+      background-color: var(--surface-muted);
+      color: var(--ink);
+    }
   }
 }
 
-.app__navbar-menu-btn,
-.app__navbar-close-btn {
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  display: flex;
+.app__navbar-menu-btn {
+  display: none;
   align-items: center;
   justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background-color: var(--surface);
+  cursor: pointer;
 
-  &:focus-visible {
-    outline: 2px solid var(--secondary-color);
-    outline-offset: 2px;
-    border-radius: 50%;
+  svg {
+    width: 20px;
+    height: 20px;
   }
 }
 
 .app__navbar-menu {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  position: relative;
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: min(280px, calc(100vw - 24px));
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background-color: var(--surface);
+  box-shadow: var(--shadow-md);
+  transform-origin: top right;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--secondary-color);
-
-  .app__navbar-menu-btn {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    svg {
-      width: 70%;
-      height: 70%;
-      color: var(--white-color);
-    }
+  ul {
+    list-style: none;
   }
 
-  .app__navbar-close-btn {
-    svg {
-      width: 35px;
-      height: 35px;
-      color: var(--secondary-color);
-      margin: 0.5rem 1rem;
-    }
-  }
-
-  div {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    z-index: 5;
-
-    padding: 1rem;
-
-    width: 80%;
-    height: 100vh;
-
+  a {
     display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-end;
+    align-items: center;
+    min-height: 48px;
+    padding: 0 16px;
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
 
-    background: var(--bg-secondary);
-    backdrop-filter: blur(10px);
-    box-shadow: var(--shadow-hover);
-
-    .dark-theme & {
-      background: rgba(15, 23, 42, 0.95);
-      backdrop-filter: blur(20px);
-    }
-
-    ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      width: 100%;
-
-      display: flex;
-      justify-content: flex-start;
-      align-items: flex-start;
-      flex-direction: column;
-
-      li {
-        margin: 1rem;
-
-        a {
-          color: var(--text-secondary);
-          text-decoration: none;
-          font-size: 1rem;
-          text-transform: uppercase;
-          font-weight: 500;
-
-          transition: all 0.3s ease;
-
-          &:hover {
-            color: var(--secondary-color);
-            transform: translateX(10px);
-          }
-        }
-
-        &:hover {
-          border-bottom: 2px solid var(--secondary-color);
-        }
-      }
-    }
-
-    @media screen and (min-width: 900px) {
-      display: none;
+    &:hover {
+      background-color: var(--surface-muted);
     }
   }
+}
 
-  @media screen and (min-width: 900px) {
+@media screen and (max-width: 767px) {
+  .app__navbar-links,
+  .app__navbar-cta {
     display: none;
   }
-}
 
-// Dark mode logo filter
-:root {
-  --logo-filter: none;
-}
-
-.dark-theme {
-  --logo-filter: brightness(0) invert(1);
+  .app__navbar-menu-btn {
+    display: inline-flex;
+  }
 }

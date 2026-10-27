@@ -1,337 +1,258 @@
-#home {
+.hero {
+  padding-top: 96px;
+  padding-bottom: 24px;
+
+  @media screen and (min-width: 1024px) {
+    padding-top: 112px;
+  }
+}
+
+.hero__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-areas:
+    'intro  intro'
+    'photo  photo'
+    'stat   status'
+    'now    now'
+    'place  place'
+    'chains chains';
+  gap: 12px;
+
+  @media screen and (min-width: 640px) {
+    grid-template-areas:
+      'intro  intro'
+      'photo  stat'
+      'photo  status'
+      'now    now'
+      'place  chains';
+    gap: 16px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-areas:
+      'intro intro photo stat'
+      'intro intro photo status'
+      'place now   now   chains';
+  }
+}
+
+.hero__tile {
   position: relative;
-  background: url("../../assets/bgIMG.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  transition: all 0.3s ease;
-
-  // Dark mode overlay for background image
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: transparent;
-    transition: background 0.3s ease;
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  .dark-theme & {
-    &::before {
-      background: rgba(15, 23, 42, 0.7); // Dark overlay for better readability
-    }
-  }
-
-  // disable the default padding styles
-  .app__wrapper {
-    padding: 0;
-    position: relative;
-    z-index: 2; // Ensure content is above overlay
-  }
-}
-
-.app__header {
-  flex: 1;
-  width: 100%;
-  height: 100%;
-  flex-direction: row;
-
-  padding: 6rem 2rem 0rem;
-
-  @media screen and (min-width: 2000px) {
-    padding-top: 8rem;
-  }
-
-  @media screen and (max-width: 1200px) {
-    flex-direction: column;
-  }
-
-  @media screen and (max-width: 450px) {
-    padding: 6rem 1rem 2rem;
-  }
-}
-
-.app__header-info {
-  flex: 0.65;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  height: 100%;
+  gap: 6px;
+  padding: 24px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
 
-  margin: 0 2rem;
+.hero__muted {
+  font-size: 0.925rem;
+  color: var(--muted);
+}
 
-  @media screen and (max-width: 1200px) {
-    width: 100%;
-    margin-right: 0rem;
+.hero__intro {
+  grid-area: intro;
+  justify-content: center;
+  gap: 0;
+  padding: 32px 24px;
+
+  @media screen and (min-width: 768px) {
+    padding: 48px 44px;
   }
 }
 
-.app__header-badge {
-  width: 100%;
+.hero__title {
+  margin-top: 18px;
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 5.2vw, 4.25rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.hero__lead {
+  max-width: 52ch;
+  margin-top: 20px;
+  font-size: 1.075rem;
+  color: var(--muted);
+}
+
+.hero__actions {
   display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.hero__socials {
+  margin-top: 28px;
+}
+
+.social-links {
+  display: flex;
+  gap: 8px;
+  list-style: none;
+}
+
+.hero__photo {
+  grid-area: photo;
+  min-height: 320px;
+  padding: 0;
   justify-content: flex-end;
-  align-items: flex-end;
-  flex-direction: column;
-
-  .badge-cmp,
-  .tag-cmp {
-    padding: 1rem 2rem;
-    background: var(--bg-secondary);
-    border-radius: 15px;
-    flex-direction: row;
-    width: auto;
-    border: 1px solid var(--border-color);
-    
-    box-shadow: var(--shadow);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
-
-    &:hover {
-      box-shadow: var(--shadow-hover);
-      transform: translateY(-2px);
-    }
-
-    // Dark mode specific styles
-    .dark-theme & {
-      background: rgba(30, 41, 59, 0.9);
-      border: 1px solid rgba(55, 65, 81, 0.5);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-    }
-
-    p {
-      color: var(--text-primary);
-      transition: color 0.3s ease;
-    }
-
-    h1, h2, h3, h4, h5, h6 {
-      color: var(--text-primary);
-      transition: color 0.3s ease;
-    }
-  }
-
-  .tag-cmp {
-    flex-direction: column;
-    margin-top: 3rem;
-
-    p {
-      width: 100%;
-      text-transform: uppercase;
-      text-align: right;
-      color: var(--text-secondary);
-    }
-  }
-
-  span {
-    font-size: 2.5rem;
-    color: var(--text-primary);
-    transition: color 0.3s ease;
-
-    @media screen and (min-width: 2000px) {
-      font-size: 5rem;
-    }
-  }
-
-  @media screen and (max-width: 1200px) {
-    justify-content: flex-start;
-    align-items: flex-start;
-  }
-}
-
-.app__header-circles {
-  flex: 0.75;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: flex-start;
-  height: 100%;
-  margin-left: 1rem;
-
-  div {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-
-    &:hover {
-      box-shadow: var(--shadow-hover);
-      transform: translateY(-5px) scale(1.05);
-      border-color: var(--secondary-color);
-    }
-
-    // Dark mode specific styles
-    .dark-theme & {
-      background: rgba(30, 41, 59, 0.8);
-      border: 1px solid rgba(55, 65, 81, 0.6);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-
-      &:hover {
-        background: rgba(30, 41, 59, 0.9);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), 
-                    0 0 20px rgba(79, 70, 229, 0.2);
-      }
-    }
-
-    img {
-      width: 60%;
-      height: 60%;
-      transition: all 0.3s ease;
-      filter: var(--img-filter, none);
-      
-      .dark-theme & {
-        --img-filter: brightness(1.1) contrast(1.1);
-      }
-    }
-
-    // Subtle glow effect for dark mode
-    .dark-theme &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: radial-gradient(circle at center, 
-                    rgba(79, 70, 229, 0.1) 0%, 
-                    transparent 70%);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .dark-theme &:hover::before {
-      opacity: 1;
-    }
-  }
-
-  // circles with different height & width
-  div:nth-child(1) {
-    width: 100px;
-    height: 100px;
-  }
-
-  div:nth-child(2) {
-    margin: 1.75rem;
-    width: 150px;
-    height: 150px;
-  }
-
-  div:nth-child(3) {
-    width: 70px;
-    height: 70px;
-  }
-
-  @media screen and (min-width: 2000px) {
-    div:nth-child(2) {
-      width: 400px;
-      height: 400px;
-    }
-
-    div:nth-child(3) {
-      width: 170px;
-      height: 170px;
-    }
-
-    div:nth-child(1) {
-      width: 200px;
-      height: 200px;
-    }
-  }
-
-  @media screen and (max-width: 1200px) {
-    width: 100%;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin-left: 0;
-
-    div {
-      margin: 1rem;
-    }
-  }
-}
-
-.app__header-img {
-  flex: 1;
-  height: 100%;
-
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  position: relative;
+  background:
+    radial-gradient(circle at 1px 1px, rgba(37, 99, 235, 0.18) 1px, transparent 0) 0 0 / 18px 18px,
+    linear-gradient(170deg, var(--accent-soft) 0%, #c7d7fe 100%);
 
   img {
     width: 100%;
+    height: 100%;
+    max-height: 420px;
     object-fit: contain;
-    z-index: 1;
-    transition: all 0.3s ease;
-    filter: var(--profile-img-filter, none);
-
-    // Subtle enhancement for dark mode
-    .dark-theme & {
-      --profile-img-filter: brightness(1.05) contrast(1.02);
-    }
+    object-position: bottom center;
   }
 
-  .overlay_circle {
+  @media screen and (min-width: 1024px) {
+    min-height: 0;
+
+    img {
+      position: absolute;
+      inset: 0;
+      max-height: none;
+      object-fit: cover;
+      object-position: 50% 100%;
+    }
+  }
+}
+
+.hero__stat {
+  grid-area: stat;
+  justify-content: space-between;
+}
+
+.hero__stat-number {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+}
+
+.hero__status {
+  grid-area: status;
+  justify-content: flex-end;
+  background-color: var(--success-soft);
+  border-color: transparent;
+}
+
+.hero__status-label {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--ink);
+}
+
+.hero__pulse {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--success);
+
+  &::after {
+    content: '';
     position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 0;
-    width: 100%;
-    height: 90%;
-    transition: all 0.3s ease;
-    opacity: var(--overlay-opacity, 1);
-
-    // Adjust overlay circle for dark mode
-    .dark-theme & {
-      --overlay-opacity: 0.8;
-      filter: hue-rotate(10deg) brightness(0.9);
-    }
-  }
-
-  @media screen and (max-width: 1200px) {
-    margin: 2rem 0;
+    inset: 0;
+    border-radius: 50%;
+    background-color: var(--success);
+    animation: hero-pulse 2s ease-out infinite;
   }
 }
 
-// Additional enhancements for better dark mode experience
-.dark-theme {
-  #home {
-    // Enhanced background treatment for dark mode
-    background-blend-mode: overlay;
-    
-    // Improve text readability with text shadows
-    .app__header-badge {
-      .badge-cmp, .tag-cmp {
-        h1, h2, h3, h4, h5, h6, p, span {
-          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-        }
-      }
-    }
-  }
-  
-  // Enhance focus states for accessibility
-  .app__header-circles div:focus,
-  .app__header-badge .badge-cmp:focus,
-  .app__header-badge .tag-cmp:focus {
-    outline: 2px solid var(--secondary-color);
-    outline-offset: 2px;
+@keyframes hero-pulse {
+  from { transform: scale(1); opacity: 0.6; }
+  to { transform: scale(2.8); opacity: 0; }
+}
+
+.hero__place {
+  grid-area: place;
+  justify-content: space-between;
+}
+
+.hero__place-name {
+  margin-top: auto;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--ink);
+}
+
+.hero__now {
+  grid-area: now;
+  background-color: var(--ink);
+  border-color: var(--ink);
+  color: var(--bg);
+
+  .eyebrow,
+  .hero__muted {
+    color: color-mix(in srgb, var(--bg) 70%, transparent);
   }
 }
 
+.hero__now-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #60a5fa;
+}
+
+.hero__now-title {
+  margin-top: 8px;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--bg);
+}
+
+.hero__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  min-height: 44px;
+  margin-top: 6px;
+  font-size: 0.925rem;
+  font-weight: 600;
+  color: #93c5fd;
+  text-decoration: none;
+
+  svg {
+    transition: transform 0.2s var(--ease-out);
+  }
+
+  &:hover svg {
+    transform: translate(2px, -2px);
+  }
+}
+
+.hero__chains {
+  grid-area: chains;
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 12px;
+    list-style: none;
+  }
+}
