@@ -5,7 +5,7 @@ import PageHeader from '../components/PageHeader';
 import usePageMeta from '../hooks/usePageMeta';
 
 const NotFoundPage = ({ title = 'Page not found', message = "There's nothing at this address." }) => {
-  usePageMeta(title);
+  usePageMeta(`${title} · Kenneth Komu`, message, { noindex: true });
   return (
     <section className='section page-top not-found'>
       <div className='container'>

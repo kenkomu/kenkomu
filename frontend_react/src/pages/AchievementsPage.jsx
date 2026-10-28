@@ -3,9 +3,10 @@ import { Footer } from '../container';
 import Achievements from '../container/Achievements/Achievements';
 import PageHeader from '../components/PageHeader';
 import usePageMeta from '../hooks/usePageMeta';
+import pages from '../constants/pageMeta.json';
 
 const AchievementsPage = () => {
-  usePageMeta('Achievements', 'Hackathons, grants, programmes and certificates from Kenneth Komu.');
+  usePageMeta(pages.achievements.title, pages.achievements.description);
   return (
     <>
       <section className='section page-top'>

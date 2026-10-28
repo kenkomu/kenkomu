@@ -7,6 +7,7 @@ import { imageUrl } from '../client';
 import useWorks, { workSlug } from '../hooks/useWorks';
 import useAchievements from '../hooks/useAchievements';
 import usePageMeta from '../hooks/usePageMeta';
+import pages from '../constants/pageMeta.json';
 import { StatusBadge } from '../container/Work/ProjectCard';
 import { formatMonth } from '../container/Achievements/AchievementCard';
 import { Footer } from '../container';
@@ -39,7 +40,7 @@ const ProjectPage = () => {
 
   const index = works.findIndex((w) => workSlug(w) === slug);
   const work = works[index];
-  usePageMeta(work?.title || (loading ? 'Work' : 'Project not found'), work?.description);
+  usePageMeta(work ? `${work.title} · Kenneth Komu` : pages.work.title, work?.description || pages.work.description);
 
   if (loading) {
     return (

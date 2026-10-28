@@ -1,0 +1,30 @@
+{
+  "home": {
+    "path": "/",
+    "title": "Kenneth Komu · Blockchain & full-stack developer",
+    "description": "Kenneth Komu is a full-stack and smart-contract engineer in Nairobi building payments, wallets, escrow and remittances for Africa.",
+    "image": "/og/home.jpg",
+    "imageAlt": "Kenneth Komu: I build payments for Africa."
+  },
+  "work": {
+    "path": "/work",
+    "title": "Work · Kenneth Komu",
+    "description": "Every project Kenneth Komu has built: payments, wallets, escrow, marketplaces and the internal tools behind them.",
+    "image": "/og/work.jpg",
+    "imageAlt": "A grid of Kenneth Komu's projects"
+  },
+  "achievements": {
+    "path": "/achievements",
+    "title": "Achievements · Kenneth Komu",
+    "description": "Hackathons, grants, programmes and certificates from Kenneth Komu, each linked to the project it produced.",
+    "image": "/og/achievements.jpg",
+    "imageAlt": "Kenneth Komu's hackathons and programmes"
+  },
+  "about": {
+    "path": "/about",
+    "title": "About · Kenneth Komu",
+    "description": "About Kenneth Komu: a full-stack and smart-contract engineer in Nairobi. Background, toolbox, services and experience.",
+    "image": "/og/about.jpg",
+    "imageAlt": "Portrait of Kenneth Komu"
+  }
+}

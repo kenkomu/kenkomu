@@ -2,9 +2,10 @@ import React from 'react';
 import { Footer, Work } from '../container';
 import PageHeader from '../components/PageHeader';
 import usePageMeta from '../hooks/usePageMeta';
+import pages from '../constants/pageMeta.json';
 
 const WorkPage = () => {
-  usePageMeta('Work', 'Every project Kenneth Komu has built: payments, wallets, marketplaces and internal tools.');
+  usePageMeta(pages.work.title, pages.work.description);
   return (
     <>
       <section className='section page-top'>
