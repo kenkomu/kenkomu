@@ -2,10 +2,12 @@
 //
 // Link previews (LinkedIn, X, WhatsApp, Slack) and some crawlers don't run JavaScript, so every
 // page needs its own title, description, image and canonical URL in the HTML itself. This writes
-// one HTML file per route (work.html, work/<slug>.html, ...) from the built index.html. Vercel
-// serves those files directly and falls back to 200.html, the plain app shell, for anything else
-// (see vercel.json). Project pages come from Sanity, so new projects get their own file on the
-// next deploy; until then they still work through the fallback.
+// one HTML file per route (work.html, work/<slug>.html, ...) from the built index.html, and
+// Vercel serves those files directly (see vercel.json).
+//
+// Project pages come from Sanity, so a new project gets its own file on the next deploy; until
+// then /work/<slug> is rewritten to 200.html, the plain app shell. Any other unknown URL gets
+// 404.html, the same shell served with a real 404 status, which renders the not-found page.
 const fs = require('fs');
 const path = require('path');
 const pages = require('../src/constants/pageMeta.json');
@@ -95,8 +97,9 @@ const fetchProjects = async () => {
 };
 
 const main = async () => {
-  // The fallback shell must be written before index.html is replaced with the home page
+  // The app shells must be written before index.html is replaced with the home page
   fs.writeFileSync(path.join(BUILD, '200.html'), template);
+  fs.writeFileSync(path.join(BUILD, '404.html'), template);
 
   const today = new Date().toISOString().slice(0, 10);
   const sitemap = [];

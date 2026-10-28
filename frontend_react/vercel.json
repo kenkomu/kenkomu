@@ -4,8 +4,8 @@
   "cleanUrls": true,
   "rewrites": [
     {
-      "source": "/(.*)",
-      "destination": "/200.html"
+      "source": "/work/:slug",
+      "destination": "/200"
     }
   ]
 }
