@@ -29,7 +29,7 @@ const App = () => {
 
                     <footer className="site-footer">
                         <div className="container">
-                            <p>© {new Date().getFullYear()} {profile.name}. Built with React and Sanity.</p>
+                            <p>© {new Date().getFullYear()} {profile.name}</p>
                             <a href="#home">Back to top ↑</a>
                         </div>
                     </footer>
