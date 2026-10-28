@@ -132,7 +132,8 @@
     color: var(--ink);
     text-decoration: none;
 
-    &:hover {
+    &:hover,
+    &.is-active {
       background-color: var(--surface-muted);
     }
   }

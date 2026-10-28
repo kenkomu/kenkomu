@@ -1,7 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { HiArrowUpRight } from 'react-icons/hi2';
 import { imageUrl } from '../../client';
+import { workSlug } from '../../hooks/useWorks';
 
 const statusClass = {
   Live: 'live',
@@ -15,7 +17,7 @@ export const StatusBadge = ({ status }) =>
   status ? <span className={`status-badge status-badge--${statusClass[status] || 'archived'}`}>{status}</span> : null;
 
 // size: 'lg' (first featured), 'md' (other featured) or 'sm' (grid)
-const ProjectCard = ({ work, size = 'sm', onOpen }) => {
+const ProjectCard = ({ work, size = 'sm' }) => {
   const width = size === 'lg' ? 1200 : 720;
   const height = Math.round(width * 0.625);
 
@@ -46,7 +48,7 @@ const ProjectCard = ({ work, size = 'sm', onOpen }) => {
         {work.client && <p className='work-card__meta'>{work.client}</p>}
         <div className='work-card__head'>
           <h3 className='work-card__title'>
-            <button type='button' onClick={() => onOpen(work)} aria-haspopup='dialog'>{work.title}</button>
+            <Link to={`/work/${workSlug(work)}`}>{work.title}</Link>
           </h3>
           {work.year && <span className='work-card__year'>{work.year}</span>}
         </div>

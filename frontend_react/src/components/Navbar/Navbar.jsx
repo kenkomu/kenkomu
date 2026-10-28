@@ -1,20 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { HiMenuAlt4, HiX } from 'react-icons/hi';
 import { motion, AnimatePresence } from 'framer-motion';
 import profile from '../../constants/profile';
 import './Navbar.scss';
 
 const links = [
-  { id: 'work', label: 'Work' },
-  { id: 'about', label: 'About' },
-  { id: 'experience', label: 'Experience' },
+  { to: '/work', label: 'Work' },
+  { to: '/achievements', label: 'Achievements' },
+  { to: '/about', label: 'About' },
 ];
 
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [active, setActive] = useState('');
   const menuRef = useRef(null);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -23,22 +24,8 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Highlight the link for whichever section is crossing the middle of the viewport
-  useEffect(() => {
-    const sections = [...links.map((l) => l.id), 'contact']
-      .map((id) => document.getElementById(id))
-      .filter(Boolean);
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActive(entry.target.id);
-        });
-      },
-      { rootMargin: '-45% 0px -50% 0px' }
-    );
-    sections.forEach((s) => observer.observe(s));
-    return () => observer.disconnect();
-  }, []);
+  // Close the mobile menu once a link has taken us to another page
+  useEffect(() => setToggle(false), [pathname]);
 
   useEffect(() => {
     if (!toggle) return undefined;
@@ -56,24 +43,25 @@ const Navbar = () => {
     };
   }, [toggle]);
 
+  const linkClass = ({ isActive }) => (isActive ? 'is-active' : undefined);
+
   return (
     <header className={`app__navbar ${scrolled ? 'is-scrolled' : ''}`}>
       <nav className='app__navbar-inner' ref={menuRef} aria-label='Main'>
-        <a className='app__navbar-logo' href='#home' aria-label={`${profile.name}, back to top`}>
+        <Link className='app__navbar-logo' to='/' aria-label={`${profile.name}, home`}>
           <span className='app__navbar-mark' aria-hidden='true'>K</span>
           <span className='app__navbar-name'>{profile.name}</span>
-        </a>
+        </Link>
 
         <ul className='app__navbar-links'>
-          {links.map(({ id, label }) => (
-            <li key={id}>
-              <a href={`#${id}`} className={active === id ? 'is-active' : ''} aria-current={active === id ? 'true' : undefined}>
-                {label}
-              </a>
+          {links.map(({ to, label }) => (
+            <li key={to}>
+              <NavLink to={to} className={linkClass}>{label}</NavLink>
             </li>
           ))}
         </ul>
 
+        {/* Every page ends with the contact section */}
         <a className='btn btn--primary btn--sm app__navbar-cta' href='#contact'>Get in touch</a>
 
         <button
@@ -97,11 +85,11 @@ const Navbar = () => {
               transition={{ duration: 0.2, ease: 'easeOut' }}
             >
               <ul>
-                {[...links, { id: 'contact', label: 'Contact' }].map(({ id, label }) => (
-                  <li key={id}>
-                    <a href={`#${id}`} onClick={() => setToggle(false)}>{label}</a>
-                  </li>
+                <li><NavLink to='/' end className={linkClass}>Home</NavLink></li>
+                {links.map(({ to, label }) => (
+                  <li key={to}><NavLink to={to} className={linkClass}>{label}</NavLink></li>
                 ))}
+                <li><a href='#contact' onClick={() => setToggle(false)}>Contact</a></li>
               </ul>
             </motion.div>
           )}

@@ -274,14 +274,73 @@
     color: var(--muted);
   }
 
-  a {
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 20px;
+  }
+
+  a,
+  button {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0;
+    border: 0;
+    background: none;
     font-size: 0.875rem;
     font-weight: 500;
     color: var(--ink);
     text-decoration: none;
+    cursor: pointer;
 
     &:hover {
       color: var(--accent);
     }
   }
+}
+
+// First section of an inner page: room for the fixed navbar, no divider above it
+.section.page-top {
+  padding-top: 128px;
+  border-top: 0;
+
+  &::before,
+  &::after {
+    display: none;
+  }
+
+  @media screen and (min-width: 1024px) {
+    padding-top: 160px;
+  }
+}
+
+.page-head {
+  max-width: 760px;
+  margin-bottom: 48px;
+}
+
+.page-head__title {
+  margin-top: 14px;
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.page-head__lead {
+  margin-top: 20px;
+  font-size: 1.125rem;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+.not-found__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 32px;
 }

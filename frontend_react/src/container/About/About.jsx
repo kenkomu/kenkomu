@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { HiArrowUpRight, HiCodeBracket, HiCube, HiFingerPrint, HiGlobeAlt, HiSparkles } from 'react-icons/hi2';
+import { HiArrowRight, HiArrowUpRight, HiCodeBracket, HiCube, HiFingerPrint, HiGlobeAlt, HiSparkles } from 'react-icons/hi2';
 import { client, imageUrl } from '../../client';
 import { images } from '../../constants';
 import profile from '../../constants/profile';
@@ -29,25 +30,31 @@ const Tile = ({ i = 0, className, children }) => (
   </motion.div>
 );
 
-const About = () => {
+// compact: the home page version, without the toolbox and services, linking to /about.
+// titleAs: 'h1' when this is the top of the About page.
+const About = ({ compact = false, titleAs: Title = 'h2' }) => {
   const [abouts, setAbouts] = useState([]);
   const [skills, setSkills] = useState([]);
   const { nowBuilding } = profile;
 
   useEffect(() => {
+    if (compact) return;
     client.fetch('*[_type == "abouts"] | order(_createdAt asc){ _id, title, description }').then(setAbouts).catch(() => {});
     client.fetch('*[_type == "skills"] | order(name asc){ name, bgColor, icon }').then(setSkills).catch(() => {});
-  }, []);
+  }, [compact]);
 
   return (
-    <section id='about' className='section about'>
-      <div className='container about__grid'>
+    <section id='about' className={`section about ${Title === 'h1' ? 'page-top' : ''}`}>
+      <div className={`container about__grid ${compact ? 'about__grid--compact' : ''}`}>
         <Tile className='about__intro'>
           <p className='eyebrow'>About</p>
-          <h2 className='section-title'>Engineer first, across the whole stack.</h2>
+          <Title className='section-title'>Engineer first, across the whole stack.</Title>
           {profile.bio.map((paragraph) => (
             <p key={paragraph.slice(0, 24)} className='about__bio'>{paragraph}</p>
           ))}
+          {compact && (
+            <Link className='btn btn--ghost about__more' to='/about'>More about me <HiArrowRight aria-hidden='true' /></Link>
+          )}
         </Tile>
 
         <Tile i={1} className='about__photo'>
@@ -71,38 +78,42 @@ const About = () => {
           <p className='about__muted'>It's <LocalTime /> here</p>
         </Tile>
 
-        <Tile i={4} className='about__tools'>
-          <p className='eyebrow'>Toolbox</p>
-          <p className='about__tile-title'>Tools I reach for most</p>
-          <ul>
-            {skills.map((skill) => (
-              <li key={skill.name}>
-                <span className='about__tool-icon' style={{ backgroundColor: skill.bgColor || undefined }}>
-                  {skill.icon && <img src={imageUrl(skill.icon, 80)} alt='' width='24' height='24' loading='lazy' />}
-                </span>
-                {skill.name}
-              </li>
-            ))}
-          </ul>
-        </Tile>
+        {!compact && (
+          <>
+            <Tile i={4} className='about__tools'>
+              <p className='eyebrow'>Toolbox</p>
+              <p className='about__tile-title'>Tools I reach for most</p>
+              <ul>
+                {skills.map((skill) => (
+                  <li key={skill.name}>
+                    <span className='about__tool-icon' style={{ backgroundColor: skill.bgColor || undefined }}>
+                      {skill.icon && <img src={imageUrl(skill.icon, 80)} alt='' width='24' height='24' loading='lazy' />}
+                    </span>
+                    {skill.name}
+                  </li>
+                ))}
+              </ul>
+            </Tile>
 
-        <Tile i={5} className='about__services'>
-          <p className='eyebrow'>What I do</p>
-          <ul>
-            {abouts.map((about) => {
-              const Icon = iconFor(about.title);
-              return (
-                <li key={about._id}>
-                  <span className='about__icon' aria-hidden='true'><Icon /></span>
-                  <div>
-                    <h3>{about.title}</h3>
-                    <p>{about.description}</p>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        </Tile>
+            <Tile i={5} className='about__services'>
+              <p className='eyebrow'>What I do</p>
+              <ul>
+                {abouts.map((about) => {
+                  const Icon = iconFor(about.title);
+                  return (
+                    <li key={about._id}>
+                      <span className='about__icon' aria-hidden='true'><Icon /></span>
+                      <div>
+                        <h3>{about.title}</h3>
+                        <p>{about.description}</p>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </Tile>
+          </>
+        )}
       </div>
     </section>
   );

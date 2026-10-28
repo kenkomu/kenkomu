@@ -1,6 +1,7 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { HiArrowDown } from 'react-icons/hi2';
+import { HiArrowRight } from 'react-icons/hi2';
 import { images } from '../../constants/';
 import profile from '../../constants/profile';
 import { imageUrl } from '../../client';
@@ -22,13 +23,7 @@ const item = {
   show: { opacity: 1, y: 0, transition: { duration: 0.5, ease } },
 };
 
-// Let the Work section open the panel itself, so closing it restores the URL.
-// Modified clicks (new tab, new window) keep the normal link behaviour.
-const openFromHero = (work) => (e) => {
-  if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-  e.preventDefault();
-  window.dispatchEvent(new CustomEvent('portfolio:open-project', { detail: work }));
-};
+const MotionLink = motion.create(Link);
 
 // Covers fan out from the middle card: tilted and lowered further toward the edges
 const fanPose = (i, count) => {
@@ -63,7 +58,7 @@ const Header = () => {
           <motion.p className='hero__lead' variants={item}>{profile.intro}</motion.p>
 
           <motion.div className='hero__actions' variants={item}>
-            <a className='btn btn--primary' href='#work'>See my work <HiArrowDown aria-hidden='true' /></a>
+            <Link className='btn btn--primary' to='/work'>See my work <HiArrowRight aria-hidden='true' /></Link>
             <a className='btn btn--ghost' href='#contact'>Get in touch</a>
           </motion.div>
           <motion.div variants={item}>
@@ -87,13 +82,12 @@ const Header = () => {
             : covers.map((work, i) => {
                 const pose = fanPose(i, covers.length);
                 return (
-                  <motion.a
+                  <MotionLink
                     key={work._id}
-                    href={`#work/${workSlug(work)}`}
+                    to={`/work/${workSlug(work)}`}
                     className='hero__card'
                     style={{ zIndex: pose.z }}
-                    aria-label={`${work.title}: open project details`}
-                    onClick={openFromHero(work)}
+                    aria-label={`${work.title}: view project`}
                     initial={{ opacity: 0, y: 80, rotate: 0 }}
                     animate={{
                       opacity: 1,
@@ -106,7 +100,7 @@ const Header = () => {
                   >
                     <img src={imageUrl(work.imgUrl, 640, 400)} alt='' width='640' height='400' />
                     <span className='hero__card-label'>{work.title}</span>
-                  </motion.a>
+                  </MotionLink>
                 );
               })}
         </div>

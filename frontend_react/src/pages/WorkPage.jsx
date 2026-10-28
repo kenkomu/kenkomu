@@ -1,0 +1,25 @@
+import React from 'react';
+import { Footer, Work } from '../container';
+import PageHeader from '../components/PageHeader';
+import usePageMeta from '../hooks/usePageMeta';
+
+const WorkPage = () => {
+  usePageMeta('Work', 'Every project Kenneth Komu has built: payments, wallets, marketplaces and internal tools.');
+  return (
+    <>
+      <section className='section page-top'>
+        <div className='container'>
+          <PageHeader
+            eyebrow='Work'
+            title="Things I've built"
+            lead='Payments, wallets and marketplaces, plus the internal tools that keep a fibre network running. Filter by category or search by name or technology.'
+          />
+          <Work />
+        </div>
+      </section>
+      <Footer />
+    </>
+  );
+};
+
+export default WorkPage;

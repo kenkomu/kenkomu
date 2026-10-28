@@ -30,6 +30,32 @@
   }
 }
 
+.about__grid--compact {
+  grid-template-areas:
+    'intro'
+    'photo'
+    'now'
+    'place';
+
+  @media screen and (min-width: 640px) {
+    grid-template-areas:
+      'intro intro'
+      'photo now'
+      'photo place';
+  }
+
+  @media screen and (min-width: 1024px) {
+    grid-template-areas:
+      'intro intro photo now'
+      'intro intro photo place';
+  }
+}
+
+.about__more {
+  align-self: flex-start;
+  margin-top: 24px;
+}
+
 .about__tile {
   position: relative;
   display: flex;
