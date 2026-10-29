@@ -13,7 +13,7 @@ const AchievementsPage = () => {
         <div className='container'>
           <PageHeader
             eyebrow='Achievements'
-            title='Hackathons, programmes and recognition'
+            title={<>Hackathons, programmes and <em>recognition</em></>}
             lead='Where I have shipped under a deadline and kept learning, newest first. Each one links to the project it produced.'
           />
           <Achievements />

@@ -47,13 +47,13 @@ const About = ({ compact = false, titleAs: Title = 'h2' }) => {
     <section id='about' className={`section about ${Title === 'h1' ? 'page-top' : ''}`}>
       <div className={`container about__grid ${compact ? 'about__grid--compact' : ''}`}>
         <Tile className='about__intro'>
-          <p className='eyebrow'>About</p>
-          <Title className='section-title'>Engineer first, across the whole stack.</Title>
+          <p className='eyebrow'>{compact && <span className='eyebrow__num'>03</span>}About</p>
+          <Title className='section-title'>Engineer first, across the whole <em>stack</em>.</Title>
           {profile.bio.map((paragraph) => (
             <p key={paragraph.slice(0, 24)} className='about__bio'>{paragraph}</p>
           ))}
           {compact && (
-            <Link className='btn btn--ghost about__more' to='/about'>More about me <HiArrowRight aria-hidden='true' /></Link>
+            <Link className='btn btn--ghost about__more' to='/about' viewTransition>More about me <HiArrowRight aria-hidden='true' /></Link>
           )}
         </Tile>
 

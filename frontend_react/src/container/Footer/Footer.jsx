@@ -25,7 +25,8 @@ const Field = ({ id, label, error, children }) => (
   </div>
 );
 
-const Footer = () => {
+// index: section number shown in the label on the home page, e.g. "04"
+const Footer = ({ index }) => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [errors, setErrors] = useState({});
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
@@ -95,8 +96,8 @@ const Footer = () => {
       <div className='container'>
         <div className='contact__panel'>
           <div className='contact__intro'>
-            <p className='eyebrow'>Contact</p>
-            <h2 className='contact__title'>Have a project in mind? Let’s build it.</h2>
+            <p className='eyebrow'>{index && <span className='eyebrow__num'>{index}</span>}Contact</p>
+            <h2 className='contact__title'>Have a project in mind? Let’s <em>build it</em>.</h2>
             <p className='contact__lead'>
               Payments, a smart contract, a mobile app or an internal tool. Tell me what you’re working on and I’ll get back to you within a couple of days.
             </p>

@@ -43,7 +43,7 @@ const AchievementCard = ({ item, compact = false }) => {
       {(item.project || item.link) && (
         <div className='achievement__links'>
           {item.project && (
-            <Link to={`/work/${item.project.slug}`}>{item.project.title} <HiArrowRight aria-hidden='true' /></Link>
+            <Link to={`/work/${item.project.slug}`} viewTransition>{item.project.title} <HiArrowRight aria-hidden='true' /></Link>
           )}
           {item.link && (
             <a href={item.link} target='_blank' rel='noopener noreferrer'>

@@ -12,7 +12,7 @@ const HomePage = () => {
       <WorkPreview />
       <AchievementsStrip />
       <About compact />
-      <Footer />
+      <Footer index='04' />
     </>
   );
 };

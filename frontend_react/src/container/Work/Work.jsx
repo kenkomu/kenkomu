@@ -19,10 +19,11 @@ const matchesQuery = (work, q) =>
     .toLowerCase()
     .includes(q);
 
-export const FeaturedRow = ({ works }) => (
+// numberOf: a project's position in the full list, shown on its card as P°01, P°02...
+export const FeaturedRow = ({ works, numberOf }) => (
   <div className={`work__featured work__featured--${works.length}`}>
     {works.map((w, i) => (
-      <ProjectCard key={w._id} work={w} size={i === 0 ? 'lg' : 'md'} />
+      <ProjectCard key={w._id} work={w} size={i === 0 ? 'lg' : 'md'} number={numberOf?.(w)} />
     ))}
   </div>
 );
@@ -66,6 +67,7 @@ const Work = () => {
   // Featured projects get their own row only in the unfiltered view
   const featured = isBrowsing ? works.filter((w) => w.featured).slice(0, MAX_FEATURED) : [];
   const listed = results.filter((w) => !featured.includes(w));
+  const numberOf = (w) => works.indexOf(w) + 1;
 
   useEffect(() => setVisible(PAGE_SIZE), [filter, q]);
 
@@ -80,14 +82,14 @@ const Work = () => {
 
     return (
       <>
-        {featured.length > 0 && <FeaturedRow works={featured} />}
+        {featured.length > 0 && <FeaturedRow works={featured} numberOf={numberOf} />}
 
         {isBrowsing && featured.length > 0 && listed.length > 0 && <h2 className='work__subhead'>More projects</h2>}
 
         <div className='work__grid'>
           <AnimatePresence mode='popLayout'>
             {listed.slice(0, visible).map((w) => (
-              <ProjectCard key={w._id} work={w} />
+              <ProjectCard key={w._id} work={w} number={numberOf(w)} />
             ))}
           </AnimatePresence>
         </div>

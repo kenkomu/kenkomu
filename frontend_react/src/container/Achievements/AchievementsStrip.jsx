@@ -20,10 +20,10 @@ const AchievementsStrip = () => {
       <div className='container'>
         <div className='section-head'>
           <div>
-            <p className='eyebrow'>Achievements</p>
-            <h2 className='section-title'>Hackathons and programmes</h2>
+            <p className='eyebrow'><span className='eyebrow__num'>02</span>Achievements</p>
+            <h2 className='section-title'>Hackathons and <em>programmes</em></h2>
           </div>
-          <Link className='btn btn--ghost' to='/achievements'>
+          <Link className='btn btn--ghost' to='/achievements' viewTransition>
             All {achievements.length} achievements <HiArrowRight aria-hidden='true' />
           </Link>
         </div>

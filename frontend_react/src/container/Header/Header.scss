@@ -195,7 +195,7 @@
   margin-inline: calc(var(--card-w) * -0.12);
   overflow: hidden;
   border: 1px solid var(--border);
-  border-radius: 18px;
+  border-radius: var(--radius-md);
   background-color: var(--surface-muted);
   box-shadow: 0 28px 50px -24px rgba(16, 16, 20, 0.45);
   outline-offset: 4px;

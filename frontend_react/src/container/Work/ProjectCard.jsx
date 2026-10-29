@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { HiArrowUpRight } from 'react-icons/hi2';
 import { imageUrl } from '../../client';
 import { workSlug } from '../../hooks/useWorks';
+import useCoverMorph from '../../hooks/useCoverMorph';
 
 const statusClass = {
   Live: 'live',
@@ -17,9 +18,13 @@ export const StatusBadge = ({ status }) =>
   status ? <span className={`status-badge status-badge--${statusClass[status] || 'archived'}`}>{status}</span> : null;
 
 // size: 'lg' (first featured), 'md' (other featured) or 'sm' (grid)
-const ProjectCard = ({ work, size = 'sm' }) => {
+// number: position in the full project list, shown as P°01
+const ProjectCard = ({ work, size = 'sm', number }) => {
   const width = size === 'lg' ? 1200 : 720;
   const height = Math.round(width * 0.625);
+  const slug = workSlug(work);
+  // Each project appears once among cards, so a card may morph even when no click started it
+  const { morphStyle, markSource } = useCoverMorph(slug, `card:${slug}`, { fallback: true });
 
   return (
     <motion.article
@@ -33,7 +38,7 @@ const ProjectCard = ({ work, size = 'sm' }) => {
     >
       <div className='work-card__media'>
         {work.imgUrl && (
-          <img src={imageUrl(work.imgUrl, width, height)} alt='' width={width} height={height} loading='lazy' decoding='async' />
+          <img src={imageUrl(work.imgUrl, width, height)} alt='' width={width} height={height} loading='lazy' decoding='async' style={morphStyle} />
         )}
         <StatusBadge status={work.status} />
         <span className='work-card__arrow' aria-hidden='true'><HiArrowUpRight /></span>
@@ -45,10 +50,15 @@ const ProjectCard = ({ work, size = 'sm' }) => {
       </div>
 
       <div className='work-card__body'>
-        {work.client && <p className='work-card__meta'>{work.client}</p>}
+        {(number || work.client) && (
+          <p className='work-card__meta'>
+            {number && <span className='work-card__index'>P°{String(number).padStart(2, '0')}</span>}
+            {work.client}
+          </p>
+        )}
         <div className='work-card__head'>
           <h3 className='work-card__title'>
-            <Link to={`/work/${workSlug(work)}`}>{work.title}</Link>
+            <Link to={`/work/${slug}`} viewTransition onClick={markSource}>{work.title}</Link>
           </h3>
           {work.year && <span className='work-card__year'>{work.year}</span>}
         </div>

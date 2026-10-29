@@ -14,14 +14,15 @@ const WorkPreview = () => {
   const { works, loading, error } = useWorks();
   const featured = works.filter((w) => w.featured).slice(0, MAX_FEATURED);
   const latest = works.filter((w) => !featured.includes(w)).slice(0, PREVIEW_SIZE - featured.length);
+  const numberOf = (w) => works.indexOf(w) + 1;
 
   return (
     <section id='work' className='section work'>
       <div className='container'>
         <div className='section-head'>
           <div>
-            <p className='eyebrow'>Selected work</p>
-            <h2 className='section-title'>Things I've built</h2>
+            <p className='eyebrow'><span className='eyebrow__num'>01</span>Selected work</p>
+            <h2 className='section-title'>Things I've <em>built</em></h2>
           </div>
           <p className='section-lead'>
             Payments, wallets and marketplaces, plus the internal tools that keep a fibre network running.
@@ -32,14 +33,14 @@ const WorkPreview = () => {
         {error && <WorkError />}
         {!loading && !error && (
           <>
-            {featured.length > 0 && <FeaturedRow works={featured} />}
+            {featured.length > 0 && <FeaturedRow works={featured} numberOf={numberOf} />}
             {latest.length > 0 && (
               <div className='work__grid work__grid--after-featured'>
-                {latest.map((w) => <ProjectCard key={w._id} work={w} />)}
+                {latest.map((w) => <ProjectCard key={w._id} work={w} number={numberOf(w)} />)}
               </div>
             )}
             <div className='work__more'>
-              <Link className='btn btn--primary' to='/work'>
+              <Link className='btn btn--primary' to='/work' viewTransition>
                 See all {works.length} projects <HiArrowRight aria-hidden='true' />
               </Link>
             </div>

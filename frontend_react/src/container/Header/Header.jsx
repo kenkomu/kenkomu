@@ -7,7 +7,9 @@ import profile from '../../constants/profile';
 import { imageUrl } from '../../client';
 import useWorks, { workSlug } from '../../hooks/useWorks';
 import useAchievements from '../../hooks/useAchievements';
+import useCoverMorph from '../../hooks/useCoverMorph';
 import LocalTime from '../../components/LocalTime';
+import scrollToSection from '../../utils/scrollToSection';
 import './Header.scss';
 
 const FAN_SIZE = 5;
@@ -24,6 +26,34 @@ const item = {
 };
 
 const MotionLink = motion.create(Link);
+
+// A cover in the hero fan; it morphs into its project page's hero when clicked
+const FanCard = ({ work, index, pose }) => {
+  const slug = workSlug(work);
+  const { morphStyle, markSource } = useCoverMorph(slug, `fan:${slug}`);
+  return (
+    <MotionLink
+      to={`/work/${slug}`}
+      viewTransition
+      onClick={markSource}
+      className='hero__card'
+      style={{ zIndex: pose.z }}
+      aria-label={`${work.title}: view project`}
+      initial={{ opacity: 0, y: 80, rotate: 0 }}
+      animate={{
+        opacity: 1,
+        y: pose.y,
+        rotate: pose.rotate,
+        transition: { type: 'spring', stiffness: 140, damping: 20, delay: 0.3 + index * 0.07 },
+      }}
+      whileHover={{ y: pose.y - 20, rotate: 0, scale: 1.06, transition: { type: 'spring', stiffness: 320, damping: 24 } }}
+      whileFocus={{ y: pose.y - 20, rotate: 0, scale: 1.06 }}
+    >
+      <img src={imageUrl(work.imgUrl, 640, 400)} alt='' width='640' height='400' style={morphStyle} />
+      <span className='hero__card-label'>{work.title}</span>
+    </MotionLink>
+  );
+};
 
 // The headline's cycling word. Words slide up through a pill that resizes to fit each one,
 // so the centred line re-centres smoothly instead of jumping.
@@ -120,14 +150,14 @@ const Header = () => {
               {headline.before} <RotatingWord words={headline.words} />
               {/* Always two lines, so the layout below never moves as the word changes */}
               <br />
-              {headline.after}
+              <em>{headline.after}</em>
             </span>
           </motion.h1>
           <motion.p className='hero__lead' variants={item}>{profile.intro}</motion.p>
 
           <motion.div className='hero__actions' variants={item}>
-            <Link className='btn btn--primary' to='/work'>See my work <HiArrowRight aria-hidden='true' /></Link>
-            <a className='btn btn--ghost' href='#contact'>Get in touch</a>
+            <Link className='btn btn--primary' to='/work' viewTransition>See my work <HiArrowRight aria-hidden='true' /></Link>
+            <a className='btn btn--ghost' href='#contact' onClick={(e) => scrollToSection(e, 'contact')}>Get in touch</a>
           </motion.div>
           {!loading && !error && (
             <motion.p className='hero__proof' variants={item}>
@@ -153,27 +183,7 @@ const Header = () => {
               })
             : covers.map((work, i) => {
                 const pose = fanPose(i, covers.length);
-                return (
-                  <MotionLink
-                    key={work._id}
-                    to={`/work/${workSlug(work)}`}
-                    className='hero__card'
-                    style={{ zIndex: pose.z }}
-                    aria-label={`${work.title}: view project`}
-                    initial={{ opacity: 0, y: 80, rotate: 0 }}
-                    animate={{
-                      opacity: 1,
-                      y: pose.y,
-                      rotate: pose.rotate,
-                      transition: { type: 'spring', stiffness: 140, damping: 20, delay: 0.3 + i * 0.07 },
-                    }}
-                    whileHover={{ y: pose.y - 20, rotate: 0, scale: 1.06, transition: { type: 'spring', stiffness: 320, damping: 24 } }}
-                    whileFocus={{ y: pose.y - 20, rotate: 0, scale: 1.06 }}
-                  >
-                    <img src={imageUrl(work.imgUrl, 640, 400)} alt='' width='640' height='400' />
-                    <span className='hero__card-label'>{work.title}</span>
-                  </MotionLink>
-                );
+                return <FanCard key={work._id} work={work} index={i} pose={pose} />;
               })}
         </div>
       </div>

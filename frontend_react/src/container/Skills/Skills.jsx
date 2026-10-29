@@ -18,7 +18,7 @@ const Skills = () => {
         <div className='section-head'>
           <div>
             <p className='eyebrow'>Experience</p>
-            <h2 className='section-title'>Where I've worked</h2>
+            <h2 className='section-title'>Where I've <em>worked</em></h2>
           </div>
           <p className='section-lead'>From network engineering to smart contracts, newest first.</p>
         </div>

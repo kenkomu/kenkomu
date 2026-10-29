@@ -1,6 +1,6 @@
 // src/App.js
-import React, { useEffect } from 'react';
-import { Link, Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import React from 'react';
+import { Link, Navigate, Outlet, ScrollRestoration, useLocation } from 'react-router-dom';
 import { MotionConfig } from 'framer-motion';
 import { Navbar } from './components';
 import { ThemeProvider } from './context/ThemeContext';
@@ -11,18 +11,14 @@ import profile from './constants/profile';
 // import ThemeToggle from './components/ThemeToggle/ThemeToggle';
 import './App.scss';
 
-// A new page starts at the top, unless the link points at a #section on it
-const ScrollManager = () => {
-    const { pathname, hash } = useLocation();
-    useEffect(() => {
-        if (hash) {
-            requestAnimationFrame(() => document.getElementById(hash.slice(1))?.scrollIntoView());
-        } else {
-            window.scrollTo({ top: 0, behavior: 'instant' });
-        }
-    }, [pathname, hash]);
-    return null;
-};
+export const routes = [
+    { path: '/', element: <HomePage /> },
+    { path: '/work', element: <WorkPage /> },
+    { path: '/work/:slug', element: <ProjectPage /> },
+    { path: '/achievements', element: <AchievementsPage /> },
+    { path: '/about', element: <AboutPage /> },
+    { path: '*', element: <NotFoundPage /> },
+];
 
 // Project links shared before the site had pages looked like /#work/<slug>
 const LegacyProjectRedirect = () => {
@@ -31,6 +27,7 @@ const LegacyProjectRedirect = () => {
     return match ? <Navigate to={`/work/${match[1]}`} replace /> : null;
 };
 
+// The layout around every page
 const App = () => {
     return (
         <ThemeProvider>
@@ -38,27 +35,21 @@ const App = () => {
                 <div className="app">
                     <a className="skip-link" href="#main">Skip to content</a>
                     {/* <ThemeToggle /> */}
-                    <ScrollManager />
+                    {/* New pages start at the top (or at a #section); Back restores the old position */}
+                    <ScrollRestoration />
                     <LegacyProjectRedirect />
                     <Navbar />
                     <main id="main">
-                        <Routes>
-                            <Route path="/" element={<HomePage />} />
-                            <Route path="/work" element={<WorkPage />} />
-                            <Route path="/work/:slug" element={<ProjectPage />} />
-                            <Route path="/achievements" element={<AchievementsPage />} />
-                            <Route path="/about" element={<AboutPage />} />
-                            <Route path="*" element={<NotFoundPage />} />
-                        </Routes>
+                        <Outlet />
                     </main>
 
                     <footer className="site-footer">
                         <div className="container">
                             <p>© {new Date().getFullYear()} {profile.name}</p>
                             <nav aria-label="Footer">
-                                <Link to="/work">Work</Link>
-                                <Link to="/achievements">Achievements</Link>
-                                <Link to="/about">About</Link>
+                                <Link to="/work" viewTransition>Work</Link>
+                                <Link to="/achievements" viewTransition>Achievements</Link>
+                                <Link to="/about" viewTransition>About</Link>
                                 <button type="button" onClick={() => window.scrollTo({ top: 0 })}>Back to top ↑</button>
                             </nav>
                         </div>

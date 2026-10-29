@@ -113,6 +113,29 @@
   color: var(--ink);
 }
 
+// The third type voice: one italic serif word per heading, e.g. "Things I've <em>built</em>"
+.section-title em,
+.page-head__title em,
+.hero__title em,
+.contact__title em {
+  font-family: var(--font-serif);
+  font-size: 1.08em;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+// Section number in a label on the home page: "01 / Selected work"
+.eyebrow__num {
+  color: var(--ink);
+
+  &::after {
+    content: '/';
+    margin-left: 8px;
+    color: var(--border-strong);
+  }
+}
+
 .section-lead {
   max-width: 46ch;
   font-size: 1.05rem;

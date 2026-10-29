@@ -11,8 +11,8 @@ const NotFoundPage = ({ title = 'Page not found', message = "There's nothing at 
       <div className='container'>
         <PageHeader eyebrow='404' title={title} lead={message}>
           <div className='not-found__actions'>
-            <Link className='btn btn--primary' to='/work'>Browse my work <HiArrowRight aria-hidden='true' /></Link>
-            <Link className='btn btn--ghost' to='/'>Go home</Link>
+            <Link className='btn btn--primary' to='/work' viewTransition>Browse my work <HiArrowRight aria-hidden='true' /></Link>
+            <Link className='btn btn--ghost' to='/' viewTransition>Go home</Link>
           </div>
         </PageHeader>
       </div>

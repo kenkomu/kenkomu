@@ -41,16 +41,9 @@
 }
 
 .app__navbar-mark {
-  display: grid;
-  place-items: center;
+  flex-shrink: 0;
   width: 34px;
   height: 34px;
-  border-radius: 10px;
-  background-color: var(--accent);
-  color: var(--on-accent);
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  font-weight: 700;
 }
 
 .app__navbar-name {

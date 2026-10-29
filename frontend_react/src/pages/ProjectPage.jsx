@@ -25,7 +25,7 @@ const NeighbourLink = ({ work, direction }) => {
     </span>
   );
   return (
-    <Link to={`/work/${workSlug(work)}`} className={`project__neighbour project__neighbour--${direction}`}>
+    <Link to={`/work/${workSlug(work)}`} viewTransition className={`project__neighbour project__neighbour--${direction}`}>
       {isPrev && <HiArrowLeft aria-hidden='true' />}
       {isPrev ? <>{thumb}{label}</> : <>{label}{thumb}</>}
       {!isPrev && <HiArrowRight aria-hidden='true' />}
@@ -62,7 +62,7 @@ const ProjectPage = () => {
     <>
       <article className='section page-top project'>
         <div className='container'>
-          <Link to='/work' className='project__back'><HiArrowLeft aria-hidden='true' /> All work</Link>
+          <Link to='/work' viewTransition className='project__back'><HiArrowLeft aria-hidden='true' /> All work</Link>
 
           <header className='project__head'>
             <p className='eyebrow'>{meta}</p>
@@ -88,7 +88,15 @@ const ProjectPage = () => {
           </header>
 
           {work.imgUrl && (
-            <img className='project__cover' src={imageUrl(work.imgUrl, 1600, 1000)} alt={`${work.title} preview`} width='1600' height='1000' />
+            <img
+              className='project__cover'
+              src={imageUrl(work.imgUrl, 1600, 1000)}
+              alt={`${work.title} preview`}
+              width='1600'
+              height='1000'
+              // The cover clicked on the previous page morphs into this one
+              style={{ viewTransitionName: 'project-cover' }}
+            />
           )}
 
           <div className='project__body'>
@@ -139,7 +147,7 @@ const ProjectPage = () => {
                   <ul className='project__recognition'>
                     {recognition.map((a) => (
                       <li key={a._id}>
-                        <Link to='/achievements'>{a.title}</Link>
+                        <Link to='/achievements' viewTransition>{a.title}</Link>
                         <span>{[a.result, a.date && formatMonth(a.date)].filter(Boolean).join(' · ')}</span>
                       </li>
                     ))}

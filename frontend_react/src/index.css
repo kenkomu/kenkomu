@@ -1,33 +1,36 @@
 /* src/index.css */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@500;600;700&display=swap");
 
 :root {
   --font-base: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-display: "Space Grotesk", var(--font-base);
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  /* Third voice: an italic serif for one accent word per heading */
+  --font-serif: "Instrument Serif", Georgia, serif;
 
-  /* Light theme colors */
-  --bg: #f5f5f2;
-  --surface: #ffffff;
-  --surface-muted: #efefeb;
-  --ink: #0b0b0c;
-  --ink-soft: #3f3f46;
-  --muted: #5f5f68;
-  --border: #e3e3de;
-  --border-strong: #cfcfc8;
-  --accent: #2563eb;
-  --accent-hover: #1d4ed8;
-  --accent-soft: #e8efff;
+  /* Light theme colors: warm paper, soft ink, one blue spent mostly on state and links */
+  --bg: #f2f0eb;
+  --surface: #f7f5f1;
+  --surface-muted: #ebe8e1;
+  --ink: #1d1d1b;
+  --ink-soft: #3d3c39;
+  --muted: #64625c;
+  --border: #dcd8ce;
+  --border-strong: #c4bfb3;
+  --accent: #2350c8;
+  --accent-hover: #1b3f9f;
+  --accent-soft: #e3e8f5;
   --on-accent: #ffffff;
-  --success: #15803d;
-  --success-soft: #dcfce7;
+  --success: #166534;
+  --success-soft: #dcf0e1;
   --danger: #b91c1c;
 
-  --radius-lg: 28px;
-  --radius-md: 20px;
-  --radius-sm: 12px;
-  --shadow-sm: 0 1px 2px rgba(16, 16, 20, 0.05);
-  --shadow-md: 0 18px 40px -18px rgba(16, 16, 20, 0.22);
+  /* Tiles are hairline-bordered and nearly square, not floating rounded cards */
+  --radius-lg: 12px;
+  --radius-md: 10px;
+  --radius-sm: 8px;
+  --shadow-sm: none;
+  --shadow-md: 0 10px 24px -14px rgba(29, 29, 27, 0.25);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 
   /* Older names still used by the Testimonial and theme-toggle styles */
@@ -78,13 +81,14 @@
 }
 
 html {
-  scroll-behavior: smooth;
   scroll-padding-top: 96px;
   -webkit-text-size-adjust: 100%;
 }
 
 body {
   background-color: var(--bg);
+  /* Faint paper grain */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   color: var(--ink);
   font-family: var(--font-base);
   font-size: 16px;
@@ -120,12 +124,42 @@ textarea {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* Page changes: a quick cross-fade, and the clicked project cover morphs into the project page's
+   hero (React Router's viewTransition links + useCoverMorph). Motion only if the visitor allows it. */
+.app__navbar {
+  view-transition-name: site-nav;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 180ms;
+  }
+
+  ::view-transition-group(project-cover) {
+    animation-duration: 340ms;
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  ::view-transition-old(project-cover),
+  ::view-transition-new(project-cover) {
+    height: 100%;
+    object-fit: cover;
+    overflow: clip;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 }

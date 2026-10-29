@@ -1,9 +1,9 @@
 // frontend_react/src/client.js
 
-import sanityClient from '@sanity/client';
+import { createClient } from '@sanity/client';
 import imageUrlBuilder from '@sanity/image-url';
 
-export const client = sanityClient({
+export const client = createClient({
     projectId: process.env.REACT_APP_SANITY_PROJECT_ID, // replace with your Sanity project ID
     dataset: 'production', // replace with your Sanity dataset name
     apiVersion: '2025-02-19', // use a specific API version

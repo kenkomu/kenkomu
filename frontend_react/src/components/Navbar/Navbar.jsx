@@ -3,6 +3,8 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import { HiMenuAlt4, HiX } from 'react-icons/hi';
 import { motion, AnimatePresence } from 'framer-motion';
 import profile from '../../constants/profile';
+import BrandMark from '../BrandMark';
+import scrollToSection from '../../utils/scrollToSection';
 import './Navbar.scss';
 
 const links = [
@@ -48,21 +50,21 @@ const Navbar = () => {
   return (
     <header className={`app__navbar ${scrolled ? 'is-scrolled' : ''}`}>
       <nav className='app__navbar-inner' ref={menuRef} aria-label='Main'>
-        <Link className='app__navbar-logo' to='/' aria-label={`${profile.name}, home`}>
-          <span className='app__navbar-mark' aria-hidden='true'>K</span>
+        <Link className='app__navbar-logo' to='/' viewTransition aria-label={`${profile.name}, home`}>
+          <BrandMark className='app__navbar-mark' />
           <span className='app__navbar-name'>{profile.name}</span>
         </Link>
 
         <ul className='app__navbar-links'>
           {links.map(({ to, label }) => (
             <li key={to}>
-              <NavLink to={to} className={linkClass}>{label}</NavLink>
+              <NavLink to={to} viewTransition className={linkClass}>{label}</NavLink>
             </li>
           ))}
         </ul>
 
         {/* Every page ends with the contact section */}
-        <a className='btn btn--primary btn--sm app__navbar-cta' href='#contact'>Get in touch</a>
+        <a className='btn btn--primary btn--sm app__navbar-cta' href='#contact' onClick={(e) => scrollToSection(e, 'contact')}>Get in touch</a>
 
         <button
           className='app__navbar-menu-btn'
@@ -85,11 +87,11 @@ const Navbar = () => {
               transition={{ duration: 0.2, ease: 'easeOut' }}
             >
               <ul>
-                <li><NavLink to='/' end className={linkClass}>Home</NavLink></li>
+                <li><NavLink to='/' end viewTransition className={linkClass}>Home</NavLink></li>
                 {links.map(({ to, label }) => (
-                  <li key={to}><NavLink to={to} className={linkClass}>{label}</NavLink></li>
+                  <li key={to}><NavLink to={to} viewTransition className={linkClass}>{label}</NavLink></li>
                 ))}
-                <li><a href='#contact' onClick={() => setToggle(false)}>Contact</a></li>
+                <li><a href='#contact' onClick={(e) => { setToggle(false); scrollToSection(e, 'contact'); }}>Contact</a></li>
               </ul>
             </motion.div>
           )}

@@ -12,7 +12,7 @@ const WorkPage = () => {
         <div className='container'>
           <PageHeader
             eyebrow='Work'
-            title="Things I've built"
+            title={<>Things I've <em>built</em></>}
             lead='Payments, wallets and marketplaces, plus the internal tools that keep a fibre network running. Filter by category or search by name or technology.'
           />
           <Work />
