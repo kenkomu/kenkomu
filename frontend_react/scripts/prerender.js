@@ -23,7 +23,7 @@ const PERSON = {
   name: 'Kenneth Komu',
   url: SITE,
   image: `${SITE}/og/about.jpg`,
-  jobTitle: 'Full-stack and smart-contract engineer',
+  jobTitle: 'Blockchain & full-stack developer',
   address: { '@type': 'PostalAddress', addressLocality: 'Nairobi', addressCountry: 'KE' },
   sameAs: [
     'https://github.com/kenkomu',

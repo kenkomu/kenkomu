@@ -1,6 +1,6 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { HiArrowRight } from 'react-icons/hi2';
 import { images } from '../../constants/';
 import profile from '../../constants/profile';
@@ -9,7 +9,6 @@ import useWorks, { workSlug } from '../../hooks/useWorks';
 import useAchievements from '../../hooks/useAchievements';
 import useCoverMorph from '../../hooks/useCoverMorph';
 import LocalTime from '../../components/LocalTime';
-import scrollToSection from '../../utils/scrollToSection';
 import './Header.scss';
 
 const FAN_SIZE = 5;
@@ -55,65 +54,6 @@ const FanCard = ({ work, index, pose }) => {
   );
 };
 
-// The headline's cycling word. Words slide up through a pill that resizes to fit each one,
-// so the centred line re-centres smoothly instead of jumping.
-const RotatingWord = ({ words, interval = 2200 }) => {
-  const reduceMotion = useReducedMotion();
-  const [index, setIndex] = useState(0);
-  const [widths, setWidths] = useState(null);
-  const itemRefs = useRef([]);
-  const measuredOnce = useRef(false);
-
-  // Measure every word (again once the web font has loaded, and on resize, since the size is fluid)
-  useLayoutEffect(() => {
-    const measure = () => setWidths(itemRefs.current.map((el) => (el ? el.offsetWidth : 0)));
-    measure();
-    document.fonts?.ready.then(measure);
-    window.addEventListener('resize', measure);
-    return () => window.removeEventListener('resize', measure);
-  }, [words]);
-
-  useEffect(() => {
-    if (widths) measuredOnce.current = true;
-  }, [widths]);
-
-  useEffect(() => {
-    if (reduceMotion) return undefined;
-    const id = setInterval(() => setIndex((i) => (i + 1) % words.length), interval);
-    return () => clearInterval(id);
-  }, [reduceMotion, words.length, interval]);
-
-  const previous = (index - 1 + words.length) % words.length;
-  return (
-    <motion.span
-      className='hero__word'
-      initial={false}
-      animate={widths ? { width: widths[index] } : undefined}
-      // The first measurement snaps into place; later changes ease
-      transition={measuredOnce.current ? { type: 'spring', stiffness: 220, damping: 30 } : { duration: 0 }}
-    >
-      {words.map((word, i) => (
-        <motion.span
-          key={word}
-          ref={(el) => { itemRefs.current[i] = el; }}
-          className='hero__word-item'
-          initial={false}
-          animate={{
-            y: i === index ? '0%' : i === previous ? '-110%' : '110%',
-            opacity: i === index ? 1 : 0,
-          }}
-          transition={{ duration: 0.5, ease }}
-        >
-          {word}
-        </motion.span>
-      ))}
-    </motion.span>
-  );
-};
-
-// e.g. ["payments", "wallets", "escrow"] -> "payments, wallets and escrow"
-const listOf = (words) => `${words.slice(0, -1).join(', ')} and ${words[words.length - 1]}`;
-
 // Covers fan out from the middle card: tilted and lowered further toward the edges
 const fanPose = (i, count) => {
   const offset = i - (count - 1) / 2;
@@ -125,9 +65,13 @@ const Header = () => {
   const { achievements } = useAchievements();
   const covers = works.filter((w) => w.imgUrl).slice(0, FAN_SIZE);
   const liveCount = works.filter((w) => w.status === 'Live').length;
-  const thisYear = String(new Date().getFullYear());
-  const hackathonsThisYear = achievements.filter((a) => a.type === 'Hackathon' && a.date?.startsWith(thisYear)).length;
-  const { availability, headline } = profile;
+  const internalCount = works.filter((w) => w.status === 'Internal tool').length;
+  // Hackathons in the most recent year that has any, so the count doesn't vanish on 1 January
+  const hackathons = achievements.filter((a) => a.type === 'Hackathon' && a.date);
+  const hackathonYear = hackathons.map((a) => a.date.slice(0, 4)).sort().pop();
+  const hackathonCount = hackathons.filter((a) => a.date.startsWith(hackathonYear)).length;
+  const { availability, nowBuilding } = profile;
+  const [firstName, ...lastNames] = profile.name.split(' ');
 
   return (
     <section id='home' className='hero'>
@@ -141,30 +85,36 @@ const Header = () => {
                 {availability.label}
               </span>
             )}
-            <span className='hero__where'>{profile.location.split(',')[0]} · <LocalTime /></span>
+            <span className='hero__where'><LocalTime /> in {profile.location.split(',')[0]}</span>
           </motion.div>
 
+          {/* Name, role, then the work by name: recruiters look at name and title first */}
           <motion.h1 className='hero__title' variants={item}>
-            <span className='sr-only'>{headline.before} {listOf(headline.words)} {headline.after}</span>
-            <span aria-hidden='true'>
-              {headline.before} <RotatingWord words={headline.words} />
-              {/* Always two lines, so the layout below never moves as the word changes */}
-              <br />
-              <em>{headline.after}</em>
-            </span>
+            {firstName} <em>{lastNames.join(' ')}</em>
           </motion.h1>
-          <motion.p className='hero__lead' variants={item}>{profile.intro}</motion.p>
+          <motion.p className='hero__role' variants={item}>{profile.role} · {profile.location.split(',')[0]}</motion.p>
+          <motion.p className='hero__lead' variants={item}>
+            {profile.intro} Now building {nowBuilding.short}.
+          </motion.p>
 
           <motion.div className='hero__actions' variants={item}>
-            <Link className='btn btn--primary' to='/work' viewTransition>See my work <HiArrowRight aria-hidden='true' /></Link>
-            <a className='btn btn--ghost' href='#contact' onClick={(e) => scrollToSection(e, 'contact')}>Get in touch</a>
+            <a className='btn btn--primary' href={`mailto:${profile.email}`}>Email me <HiArrowRight aria-hidden='true' /></a>
+            <Link className='btn btn--ghost' to='/work' viewTransition>See my work</Link>
           </motion.div>
           {!loading && !error && (
-            <motion.p className='hero__proof' variants={item}>
-              <span><strong>{works.length}</strong> projects</span>
-              <span><strong>{liveCount}</strong> live<span className='hero__proof-long'>&nbsp;in production</span></span>
-              {hackathonsThisYear > 0 && <span><strong>{hackathonsThisYear}</strong> hackathons in {thisYear}</span>}
-            </motion.p>
+            <motion.ul className='hero__proof' variants={item} aria-label='Track record'>
+              <li>
+                <strong>{liveCount}</strong> apps live<span className='hero__proof-long'>&nbsp;in production</span>
+              </li>
+              {internalCount > 0 && (
+                <li>
+                  <strong>{internalCount}</strong> field tools<span className='hero__proof-long'>&nbsp;running a fibre ISP</span>
+                </li>
+              )}
+              {hackathonCount > 0 && (
+                <li><strong>{hackathonCount}</strong> hackathons<span className='hero__proof-long'>&nbsp;in {hackathonYear}</span></li>
+              )}
+            </motion.ul>
           )}
         </motion.div>
 
@@ -190,7 +140,7 @@ const Header = () => {
 
       <div className='hero__strip'>
         <div className='container hero__strip-inner'>
-          <p className='eyebrow'>Shipped on</p>
+          <p className='eyebrow'>Built on</p>
           <ul className='hero__chains'>
             {profile.chains.map((chain) => <li key={chain}>{chain}</li>)}
           </ul>

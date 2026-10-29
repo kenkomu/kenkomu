@@ -2,9 +2,9 @@
   "home": {
     "path": "/",
     "title": "Kenneth Komu · Blockchain & full-stack developer",
-    "description": "Kenneth Komu is a full-stack and smart-contract engineer in Nairobi building payments, wallets, escrow and remittances for Africa.",
+    "description": "Kenneth Komu is a blockchain and full-stack developer in Nairobi who connects M-Pesa to blockchains: USDC remittances on Base, escrow on Solana and cross-chain privacy on Starknet.",
     "image": "/og/home.jpg",
-    "imageAlt": "Kenneth Komu: I build payments for Africa."
+    "imageAlt": "Kenneth Komu, blockchain and full-stack developer in Nairobi"
   },
   "work": {
     "path": "/work",
@@ -23,7 +23,7 @@
   "about": {
     "path": "/about",
     "title": "About · Kenneth Komu",
-    "description": "About Kenneth Komu: a full-stack and smart-contract engineer in Nairobi. Background, toolbox, services and experience.",
+    "description": "About Kenneth Komu, a blockchain and full-stack developer in Nairobi: background, toolbox, services and experience.",
     "image": "/og/about.jpg",
     "imageAlt": "Portrait of Kenneth Komu"
   }

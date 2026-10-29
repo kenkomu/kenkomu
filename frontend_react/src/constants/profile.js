@@ -3,14 +3,10 @@
 const profile = {
   name: 'Kenneth Komu',
   role: 'Blockchain & full-stack developer',
-  // Hero headline reads "I build <word> for Africa.", with the word cycling through the list
-  headline: {
-    before: 'I build',
-    words: ['payments', 'wallets', 'escrow', 'remittances', 'field apps'],
-    after: 'for Africa.',
-  },
-  intro:
-    'Full-stack and smart-contract engineer in Nairobi. I connect M-Pesa to blockchains, and ship everything from the contract to the app.',
+  // Hero: the name is the headline, then the role, then this line naming the work.
+  // It is followed by "Now building <nowBuilding.short>." so the hero and the About tile always agree.
+  // M\u2011Pesa uses a non-breaking hyphen so the name never splits across lines.
+  intro: 'I connect M\u2011Pesa to blockchains: USDC remittances on Base, escrow on Solana, cross-chain privacy on Starknet.',
   location: 'Nairobi, Kenya',
   timeZone: 'Africa/Nairobi',
   timeZoneLabel: 'EAT',
@@ -22,11 +18,13 @@ const profile = {
   },
   nowBuilding: {
     title: 'CKB ↔ M-Pesa onramp',
+    short: 'a trustless M\u2011Pesa ↔ CKB onramp',
     description:
       'Trustless M-Pesa to CKB trades: the buyer proves an M-Pesa payment with zkTLS and an escrow contract releases the funds.',
     link: 'https://github.com/kenkomu/ckb-mpesa-onramp',
   },
-  chains: ['Ethereum', 'Base', 'Starknet', 'Nervos CKB', 'Monad', 'Arc'],
+  // The "Built on" strip under the hero
+  chains: ['Ethereum', 'Base', 'Solana', 'Starknet', 'Nervos CKB', 'Monad', 'Arc'],
   bio: [
     "I'm Kenneth, a developer based in Nairobi. I work where payments, blockchains and everyday tools meet: escrow contracts and M-Pesa rails, remittance APIs, and the warehouse, asset and field-ops systems a fibre ISP runs on.",
     'I like owning a product end to end: the smart contract, the backend, the mobile app and the pipeline that ships it. Most of what I build is for African users first.',
