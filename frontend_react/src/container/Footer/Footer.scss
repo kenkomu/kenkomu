@@ -65,6 +65,9 @@
   }
 
   a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
     min-width: 0;
     overflow-wrap: anywhere;
     font-size: clamp(0.95rem, 3.6vw, 1.05rem);

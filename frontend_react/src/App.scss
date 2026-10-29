@@ -6,7 +6,7 @@
 
 .container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 75rem;
   margin-inline: auto;
   padding-inline: 16px;
 
@@ -38,7 +38,7 @@
       bottom: 0;
       left: 50%;
       z-index: -1;
-      width: min(calc(100% - 16px), 1184px);
+      width: min(calc(100% - 16px), 74rem);
       border-inline: 1px solid var(--border);
       transform: translateX(-50%);
       pointer-events: none;
@@ -66,11 +66,11 @@
     }
 
     &::before {
-      left: calc(50% - min(calc(100% - 16px), 1184px) / 2 - 7px);
+      left: calc(50% - min(calc(100% - 16px), 74rem) / 2 - 7px);
     }
 
     &::after {
-      right: calc(50% - min(calc(100% - 16px), 1184px) / 2 - 7px);
+      right: calc(50% - min(calc(100% - 16px), 74rem) / 2 - 7px);
     }
   }
 }
@@ -307,6 +307,8 @@
   button {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
+    min-width: 44px;
     min-height: 44px;
     padding: 0;
     border: 0;

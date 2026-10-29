@@ -82,7 +82,27 @@
 
 html {
   scroll-padding-top: 96px;
+  /* Everything is sized in rem, so on large monitors the whole layout scales up instead of
+     sitting in a narrow column with empty margins */
   -webkit-text-size-adjust: 100%;
+}
+
+@media (min-width: 1800px) {
+  html {
+    font-size: 112.5%;
+  }
+}
+
+@media (min-width: 2300px) {
+  html {
+    font-size: 137.5%;
+  }
+}
+
+@media (min-width: 3200px) {
+  html {
+    font-size: 175%;
+  }
 }
 
 body {
