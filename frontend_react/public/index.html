@@ -9,10 +9,11 @@
   <meta name="author" content="Kenneth Komu" />
   <meta name="theme-color" content="#f2f0eb" />
 
-  <!-- Icons: ICO for old browsers, SVG (with a dark-mode variant) for modern ones -->
-  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" sizes="32x32" />
-  <link rel="icon" href="%PUBLIC_URL%/favicon.svg" type="image/svg+xml" />
-  <link rel="apple-touch-icon" href="%PUBLIC_URL%/apple-touch-icon.png" />
+  <!-- Icons: ICO for old browsers, SVG (with a dark-mode variant) for modern ones.
+       ?v=2 forces browsers that cached the earlier icon to fetch the new one; bump it when the icon changes. -->
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico?v=2" sizes="32x32" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.svg?v=2" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/apple-touch-icon.png?v=2" />
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
   <!-- Social previews. scripts/prerender.js writes page-specific versions (plus og:url and canonical) for every route at build time. -->
